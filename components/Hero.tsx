@@ -11,8 +11,8 @@ interface HeroProps {
 export const Hero = ({ onStart }: HeroProps) => {
     return (
         <div className="flex flex-col items-center justify-center text-center p-4 max-w-4xl mx-auto z-20">
-            <div className="mb-8">
-                <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-4">
+            <div className="mb-6 md:mb-8">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-4 px-2">
                     <TextType
                         text={[
                             "Test your AI Voice Call Center Agent",
@@ -26,7 +26,7 @@ export const Hero = ({ onStart }: HeroProps) => {
                         loop={true}
                     />
                 </h1>
-                <p className="text-neutral-300 text-lg md:text-xl max-w-2xl mx-auto">
+                <p className="text-neutral-400 text-base md:text-xl max-w-2xl mx-auto px-4 leading-relaxed">
                     Experience a real-time voice conversation directly in your browser.
                     No phone required.
                 </p>

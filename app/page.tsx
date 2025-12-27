@@ -80,9 +80,9 @@ export default function Home() {
     };
 
     return (
-        <main className="relative w-full h-screen overflow-hidden text-white">
+        <main className="relative w-full min-h-screen text-white">
             <AuroraBackground>
-                <div className="relative z-10 flex flex-col h-full w-full max-w-6xl mx-auto p-4">
+                <div className="relative z-10 flex flex-col min-h-screen w-full max-w-6xl mx-auto p-4 md:p-6">
                     <header className="flex justify-between items-center py-4">
                         <div className="flex flex-col gap-2">
                             <TrueFocus
@@ -94,7 +94,7 @@ export default function Home() {
                                 pauseBetweenAnimations={1}
                             />
                             {assistant && (
-                                <h2 className="text-3xl font-bold italic text-purple-200">
+                                <h2 className="text-xl md:text-3xl font-bold italic text-purple-200 truncate max-w-[200px] md:max-w-none">
                                     <Typewriter text={`Testing: ${assistant.name}`} speed={80} />
                                 </h2>
                             )}
@@ -144,16 +144,16 @@ export default function Home() {
                         )}
 
                         {sessionStatus === "connected" && session && (
-                            <div className="w-full h-full flex flex-col items-center justify-center">
-                                <div className="relative w-64 h-64 flex items-center justify-center mb-12">
+                            <div className="w-full h-full flex flex-col items-center justify-center py-8">
+                                <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-8 md:mb-12">
                                     <div className="absolute inset-0 bg-purple-600/20 rounded-full animate-ping opacity-75"></div>
-                                    <div className="relative z-10 w-48 h-48 bg-black/60 backdrop-blur-xl border border-purple-500/50 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(147,51,234,0.3)]">
-                                        <Mic className="w-16 h-16 text-purple-400" />
+                                    <div className="relative z-10 w-32 h-32 md:w-48 md:h-48 bg-black/60 backdrop-blur-xl border border-purple-500/50 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(147,51,234,0.3)]">
+                                        <Mic className="w-10 h-10 md:w-16 md:h-16 text-purple-400" />
                                     </div>
                                 </div>
 
-                                <h2 className="text-3xl font-bold mb-2">{assistant?.name}</h2>
-                                <p className="text-zinc-400 mb-8 animate-pulse">Listening...</p>
+                                <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center px-4">{assistant?.name}</h2>
+                                <p className="text-zinc-400 mb-8 animate-pulse text-sm md:text-base">Listening...</p>
 
                                 <button
                                     onClick={handleEndCall}

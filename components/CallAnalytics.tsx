@@ -34,35 +34,35 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                     </button>
                 </div>
 
-                <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+                <div className="p-4 md:p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                        <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-6">
+                        <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-3 md:p-4">
                             <div className="flex items-center gap-3 mb-2">
-                                <Clock className="w-5 h-5 text-purple-400" />
-                                <span className="text-sm text-zinc-400">Duration</span>
+                                <Clock className="w-4 h-4 md:w-5 md:h-5 text-purple-400" />
+                                <span className="text-xs md:text-sm text-zinc-400">Duration</span>
                             </div>
-                            <p className="text-2xl font-bold text-white">
+                            <p className="text-xl md:text-2xl font-bold text-white">
                                 {formatDuration(callData.durationSeconds || 0)}
                             </p>
                         </div>
 
-                        <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+                        <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-3 md:p-4">
                             <div className="flex items-center gap-3 mb-2">
-                                <DollarSign className="w-5 h-5 text-green-400" />
-                                <span className="text-sm text-zinc-400">Cost</span>
+                                <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
+                                <span className="text-xs md:text-sm text-zinc-400">Cost</span>
                             </div>
-                            <p className="text-2xl font-bold text-white">
+                            <p className="text-xl md:text-2xl font-bold text-white">
                                 {formatCost(callData.cost || 0)}
                             </p>
                         </div>
 
-                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3 md:p-4 sm:col-span-2 lg:col-span-1">
                             <div className="flex items-center gap-3 mb-2">
-                                <MessageSquare className="w-5 h-5 text-blue-400" />
-                                <span className="text-sm text-zinc-400">Messages</span>
+                                <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
+                                <span className="text-xs md:text-sm text-zinc-400">Messages</span>
                             </div>
-                            <p className="text-2xl font-bold text-white">
+                            <p className="text-xl md:text-2xl font-bold text-white">
                                 {callData.transcript?.length || 0}
                             </p>
                         </div>
@@ -70,19 +70,19 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
 
                     {/* Summary */}
                     {callData.summary && (
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 md:p-6 mb-6">
                             <div className="flex items-center gap-2 mb-3">
-                                <FileText className="w-5 h-5 text-purple-400" />
-                                <h3 className="text-lg font-bold text-white">Summary</h3>
+                                <FileText className="w-4 h-4 md:w-5 md:h-5 text-purple-400" />
+                                <h3 className="text-base md:text-lg font-bold text-white">Summary</h3>
                             </div>
-                            <p className="text-zinc-300 leading-relaxed">{callData.summary}</p>
+                            <p className="text-zinc-300 text-sm md:text-base leading-relaxed">{callData.summary}</p>
                         </div>
                     )}
 
                     {/* Transcript */}
                     {callData.transcript && callData.transcript.length > 0 && (
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                            <h3 className="text-lg font-bold text-white mb-4">Full Transcript</h3>
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 md:p-6">
+                            <h3 className="text-base md:text-lg font-bold text-white mb-4">Full Transcript</h3>
                             <div className="space-y-4">
                                 {callData.transcript.map((message: any, index: number) => (
                                     <div
@@ -91,17 +91,17 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                                             }`}
                                     >
                                         <div
-                                            className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === 'user'
-                                                    ? 'bg-purple-600 text-white'
-                                                    : 'bg-white/10 text-zinc-100'
+                                            className={`max-w-[85%] md:max-w-[80%] rounded-2xl px-3 md:px-4 py-2 md:py-3 ${message.role === 'user'
+                                                ? 'bg-purple-600 text-white'
+                                                : 'bg-white/10 text-zinc-100'
                                                 }`}
                                         >
-                                            <p className="text-sm font-medium mb-1 opacity-70">
+                                            <p className="text-[10px] md:text-xs font-medium mb-1 opacity-70">
                                                 {message.role === 'user' ? 'You' : 'Assistant'}
                                             </p>
-                                            <p className="leading-relaxed">{message.text}</p>
+                                            <p className="text-sm md:text-base leading-relaxed">{message.text}</p>
                                             {message.timestamp && (
-                                                <p className="text-xs opacity-50 mt-2">
+                                                <p className="text-[10px] opacity-50 mt-2">
                                                     {new Date(message.timestamp).toLocaleTimeString()}
                                                 </p>
                                             )}
@@ -115,20 +115,20 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                     {/* Additional Details */}
                     {callData.model && (
                         <div className="mt-6 bg-white/5 border border-white/10 rounded-xl p-4">
-                            <div className="grid grid-cols-2 gap-4 text-sm">
-                                <div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 text-xs md:text-sm">
+                                <div className="flex justify-between sm:justify-start">
                                     <span className="text-zinc-400">Model:</span>
                                     <span className="ml-2 text-white font-medium">{callData.model}</span>
                                 </div>
-                                <div>
+                                <div className="flex justify-between sm:justify-start">
                                     <span className="text-zinc-400">Voice:</span>
                                     <span className="ml-2 text-white font-medium">{callData.voice || 'Default'}</span>
                                 </div>
-                                <div>
+                                <div className="flex justify-between sm:justify-start">
                                     <span className="text-zinc-400">Call ID:</span>
-                                    <span className="ml-2 text-white font-mono text-xs">{callData.callId}</span>
+                                    <span className="ml-2 text-white font-mono text-[10px] md:text-xs truncate max-w-[150px]">{callData.callId}</span>
                                 </div>
-                                <div>
+                                <div className="flex justify-between sm:justify-start">
                                     <span className="text-zinc-400">Status:</span>
                                     <span className="ml-2 text-green-400 font-medium">{callData.status || 'Completed'}</span>
                                 </div>
