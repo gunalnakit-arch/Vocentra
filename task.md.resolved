@@ -1,0 +1,41 @@
+# Voice AI Agent - Multi-Assistant System
+
+## Phase 1: Data Structure & Storage
+- [ ] Define Assistant type/interface
+- [ ] Create local storage utilities for assistants
+- [ ] Create default assistant from current config
+- [ ] Set up file management structure
+
+## Phase 2: Assistant List View
+- [ ] Create AssistantCard component
+- [ ] Create AssistantList page/component
+- [ ] Add "New Assistant" button
+- [ ] Add Edit/Test buttons to each card
+- [ ] Implement assistant selection
+
+## Phase 3: Assistant Editor
+- [ ] Create AssistantEditor component
+- [ ] Add System Instruction textarea
+- [ ] Add Voice selection
+- [ ] Add Language selection
+- [ ] Add file upload area
+- [ ] Create FileList component with delete
+- [ ] Add Save/Cancel buttons
+
+## Phase 4: File Management
+- [ ] Implement file upload to base64/local storage
+- [ ] Create file preview/list UI
+- [ ] Add delete file functionality
+- [ ] Store file metadata with assistant
+
+## Phase 5: Integration
+- [ ] Update useGeminiLive to accept assistant config
+- [ ] Implement file grounding in API calls
+- [ ] Update main page to use selected assistant
+- [ ] Add navigation between list and test views
+
+## Phase 6: Testing & Polish
+- [ ] Test assistant creation/editing
+- [ ] Test file upload/delete
+- [ ] Test grounding with files
+- [ ] Verify current assistant still works

@@ -1,0 +1,52 @@
+# Voice AI Agent Demo - Walkthrough
+
+I have built a production-ready web application that integrates **Gemini Live** for real-time voice conversations.
+
+## Features Implemented
+- **Aurora Background**: A stunning, animated gradient background.
+- **Hero Section**: Modern, startup-style landing page with a "Test et" call-to-action.
+- **Real-time Voice Conversation**:
+    - Microphone access and audio streaming.
+    - WebSocket integration with Gemini Multimodal Live API.
+    - Real-time audio playback of AI responses.
+- **Conversation Panel**: Displays chat bubbles for both User (transcribed) and AI (text/audio).
+- **Dashboard**:
+    - Post-call summary (mocked for demo).
+    - Cost and token usage calculation.
+    - Audio recording playback.
+    - Full transcript view.
+
+## How to Run
+
+1. **Install Dependencies** (if not already done):
+   ```bash
+   npm install
+   ```
+
+2. **Configure API Key**:
+   - Rename [.env.local.example](file:///Users/kaan/Desktop/Voice%20AI%20Agent/.env.local.example) to `.env.local` (optional, or use the UI settings).
+   - Get a Gemini API Key from [Google AI Studio](https://aistudio.google.com/).
+   - You can enter the key directly in the app's settings menu (gear icon).
+
+3. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Open the App**:
+   - Navigate to `http://localhost:3000`.
+   - Click "Test et" to start.
+   - Allow microphone permissions.
+   - Speak to the agent!
+
+## Architecture
+- **Next.js 14 (App Router)**: Framework.
+- **Tailwind CSS**: Styling.
+- **WebSockets**: Real-time communication with Gemini.
+- **Web Audio API**: Audio recording and playback.
+- **Web Speech API**: Local user transcription.
+
+## Verification
+- The application builds successfully (`npm run build`).
+- All components are type-safe with TypeScript.
+- The UI is responsive and supports dark mode.
