@@ -20,7 +20,7 @@ export default function Home() {
     const [callAnalytics, setCallAnalytics] = useState<any>(null);
     const [showAnalytics, setShowAnalytics] = useState(false);
 
-    const { connect, disconnect, isConnected, session, error: ultravoxError } = useUltravoxSession();
+    const { connect, disconnect, isConnected, session, status, error: ultravoxError } = useUltravoxSession();
 
     useEffect(() => {
         const loadDefault = async () => {
@@ -146,14 +146,18 @@ export default function Home() {
                         {sessionStatus === "connected" && session && (
                             <div className="w-full h-full flex flex-col items-center justify-center py-8">
                                 <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-8 md:mb-12">
-                                    <div className="absolute inset-0 bg-purple-600/20 rounded-full animate-ping opacity-75"></div>
+                                    {(status === "listening" || status === "speaking") && (
+                                        <div className="absolute inset-0 bg-purple-600/20 rounded-full animate-ping opacity-75"></div>
+                                    )}
                                     <div className="relative z-10 w-32 h-32 md:w-48 md:h-48 bg-black/60 backdrop-blur-xl border border-purple-500/50 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(147,51,234,0.3)]">
-                                        <Mic className="w-10 h-10 md:w-16 md:h-16 text-purple-400" />
+                                        <Mic className={`w-10 h-10 md:w-16 md:h-16 ${status === "listening" ? "text-purple-400" : "text-zinc-500"}`} />
                                     </div>
                                 </div>
 
                                 <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center px-4">{assistant?.name}</h2>
-                                <p className="text-zinc-400 mb-8 animate-pulse text-sm md:text-base">Listening...</p>
+                                <p className="text-zinc-400 mb-8 animate-pulse text-sm md:text-base capitalize">
+                                    {status === "listening" ? "Listening..." : status === "thinking" ? "Thinking..." : status === "speaking" ? "Speaking..." : "Connecting..."}
+                                </p>
 
                                 <button
                                     onClick={handleEndCall}
