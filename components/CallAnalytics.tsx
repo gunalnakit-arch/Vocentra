@@ -63,28 +63,33 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                                 <span className="text-sm text-zinc-400">Messages</span>
                             </div>
                             <p className="text-2xl font-bold text-white">
-                                {callData.transcript?.length || 0}
+                                {callData.messages?.length || 0}
                             </p>
                         </div>
                     </div>
 
                     {/* Summary */}
-                    {callData.summary && (
+                    {(callData.summary || callData.shortSummary) && (
                         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
                             <div className="flex items-center gap-2 mb-3">
                                 <FileText className="w-5 h-5 text-purple-400" />
                                 <h3 className="text-lg font-bold text-white">Summary</h3>
                             </div>
-                            <p className="text-zinc-300 leading-relaxed">{callData.summary}</p>
+                            {callData.shortSummary && (
+                                <p className="text-zinc-100 font-medium mb-3 italic">{callData.shortSummary}</p>
+                            )}
+                            {callData.summary && (
+                                <p className="text-zinc-300 leading-relaxed">{callData.summary}</p>
+                            )}
                         </div>
                     )}
 
                     {/* Transcript */}
-                    {callData.transcript && callData.transcript.length > 0 && (
+                    {callData.messages && callData.messages.length > 0 && (
                         <div className="bg-white/5 border border-white/10 rounded-xl p-6">
                             <h3 className="text-lg font-bold text-white mb-4">Full Transcript</h3>
                             <div className="space-y-4">
-                                {callData.transcript.map((message: any, index: number) => (
+                                {callData.messages.map((message: any, index: number) => (
                                     <div
                                         key={index}
                                         className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'

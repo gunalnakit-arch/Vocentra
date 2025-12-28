@@ -8,9 +8,15 @@ export async function GET(
     try {
         const { callId } = await params;
 
-        const callDetails = await ultravoxService.getCallDetails(callId);
+        const [details, messages] = await Promise.all([
+            ultravoxService.getCallDetails(callId),
+            ultravoxService.getCallMessages(callId)
+        ]);
 
-        return NextResponse.json(callDetails);
+        return NextResponse.json({
+            ...details,
+            messages: messages.results || []
+        });
     } catch (error: any) {
         console.error("Error fetching call details:", error);
         return NextResponse.json({

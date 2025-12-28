@@ -111,6 +111,16 @@ export const ultravoxService = {
             console.error('Ultravox Get Call Details Error:', error.response?.data);
             throw error;
         }
+    },
+
+    async getCallMessages(callId: string) {
+        try {
+            const response = await client.get(`/calls/${callId}/messages`);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox Get Call Messages Error:', error.response?.data);
+            throw error;
+        }
     }
 
 };
