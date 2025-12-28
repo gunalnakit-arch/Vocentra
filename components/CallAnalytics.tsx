@@ -1,13 +1,17 @@
 "use client";
-import React from "react";
-import { X, DollarSign, Clock, MessageSquare, FileText } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, DollarSign, Clock, MessageSquare, FileText, RefreshCw } from "lucide-react";
+import axios from "axios";
 
 interface CallAnalyticsProps {
     callData: any;
     onClose: () => void;
 }
 
-export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose }) => {
+export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData: initialData, onClose }) => {
+    const [callData, setCallData] = useState(initialData);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+
     if (!callData) return null;
 
     const formatDuration = (seconds: number) => {
@@ -20,12 +24,38 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
         return `$${cost.toFixed(4)}`;
     };
 
+    const handleRefresh = async () => {
+        if (isRefreshing) return;
+        setIsRefreshing(true);
+        try {
+            const res = await axios.get(`/api/calls/${callData.callId}`);
+            setCallData(res.data);
+        } catch (error) {
+            console.error("Failed to refresh call analytics", error);
+        } finally {
+            setIsRefreshing(false);
+        }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-black/90 border border-white/10 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="bg-black/90 border border-white/10 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-white/10">
-                    <h2 className="text-2xl font-bold text-white">Call Analytics</h2>
+                    <div className="flex items-center gap-4">
+                        <h2 className="text-2xl font-bold text-white">Call Analytics</h2>
+                        <button
+                            onClick={handleRefresh}
+                            disabled={isRefreshing}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isRefreshing
+                                ? "bg-purple-500/20 text-purple-300 cursor-not-allowed"
+                                : "bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white"
+                                }`}
+                        >
+                            <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
+                            {isRefreshing ? "Refreshing..." : "Refresh Data"}
+                        </button>
+                    </div>
                     <button
                         onClick={onClose}
                         className="p-2 hover:bg-white/10 rounded-full transition-colors"
@@ -69,7 +99,7 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                     </div>
 
                     {/* Summary */}
-                    {(callData.summary || callData.shortSummary) && (
+                    {(callData.summary || callData.shortSummary) ? (
                         <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
                             <div className="flex items-center gap-2 mb-3">
                                 <FileText className="w-5 h-5 text-purple-400" />
@@ -81,6 +111,20 @@ export const CallAnalytics: React.FC<CallAnalyticsProps> = ({ callData, onClose 
                             {callData.summary && (
                                 <p className="text-zinc-300 leading-relaxed">{callData.summary}</p>
                             )}
+                        </div>
+                    ) : (
+                        <div className="bg-white/5 border border-dashed border-white/10 rounded-xl p-8 mb-6 text-center">
+                            <FileText className="w-10 h-10 text-zinc-600 mx-auto mb-3" />
+                            <h3 className="text-zinc-400 font-medium mb-2">Summary is being generated...</h3>
+                            <p className="text-sm text-zinc-500 mb-4">Ultravox is processing the conversation summary. Please wait a few seconds and refresh.</p>
+                            <button
+                                onClick={handleRefresh}
+                                disabled={isRefreshing}
+                                className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-bold uppercase tracking-wider"
+                            >
+                                <RefreshCw className={`w-4 h-4 ${isRefreshing ? "animate-spin" : ""}`} />
+                                {isRefreshing ? "Refreshing..." : "Check Again"}
+                            </button>
                         </div>
                     )}
 
