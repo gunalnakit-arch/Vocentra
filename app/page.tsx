@@ -83,23 +83,25 @@ export default function Home() {
         <main className="relative w-full min-h-screen text-white">
             <AuroraBackground>
                 <div className="relative z-10 flex flex-col min-h-screen w-full max-w-6xl mx-auto p-4 md:p-6">
-                    <header className="flex justify-between items-center py-4">
-                        <div className="flex flex-col gap-2">
-                            <TrueFocus
-                                sentence="Vocentra AI"
-                                manualMode={false}
-                                blurAmount={5}
-                                borderColor="rgba(147, 51, 234, 1)"
-                                animationDuration={2}
-                                pauseBetweenAnimations={1}
-                            />
+                    <header className="flex justify-between items-start py-8 px-2 md:px-0">
+                        <div className="flex flex-col gap-6">
+                            <div className="py-2">
+                                <TrueFocus
+                                    sentence="Vocentra AI"
+                                    manualMode={false}
+                                    blurAmount={5}
+                                    borderColor="rgba(147, 51, 234, 1)"
+                                    animationDuration={2}
+                                    pauseBetweenAnimations={1}
+                                />
+                            </div>
                             {assistant && (
-                                <h2 className="text-xl md:text-3xl font-bold italic text-purple-200 truncate max-w-[200px] md:max-w-none">
+                                <h2 className="text-xl md:text-3xl font-bold italic text-purple-200 truncate max-w-[250px] md:max-w-none pl-1">
                                     <Typewriter text={`Testing: ${assistant.name}`} speed={80} />
                                 </h2>
                             )}
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 pt-2">
                             <button
                                 onClick={() => router.push("/assistants")}
                                 className="p-2 rounded-full hover:bg-white/10 transition-colors"

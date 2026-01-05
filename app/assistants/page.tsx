@@ -107,29 +107,38 @@ export default function AssistantsPage() {
             <AuroraBackground>
                 <div className="relative z-10 w-full max-w-6xl mx-auto p-6 space-y-8">
                     {/* Header */}
-                    <div className="flex items-center justify-between">
-                        <button
-                            onClick={() => router.push("/")}
-                            className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
-                        >
-                            <ArrowLeft className="w-5 h-5" />
-                            Back to Test
-                        </button>
-                        <TrueFocus
-                            sentence="AI Assistants"
-                            manualMode={false}
-                            blurAmount={5}
-                            borderColor="rgba(147, 51, 234, 1)"
-                            animationDuration={2}
-                            pauseBetweenAnimations={1}
-                        />
-                        <button
-                            onClick={handleCreateNew}
-                            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
-                        >
-                            <Plus className="w-5 h-5" />
-                            New Assistant
-                        </button>
+                    {/* Header */}
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+                        <div className="w-full md:w-auto flex justify-start">
+                            <button
+                                onClick={() => router.push("/")}
+                                className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                                <span>Back to Test</span>
+                            </button>
+                        </div>
+
+                        <div className="order-first md:order-none scale-90 md:scale-100">
+                            <TrueFocus
+                                sentence="AI Assistants"
+                                manualMode={false}
+                                blurAmount={5}
+                                borderColor="rgba(147, 51, 234, 1)"
+                                animationDuration={2}
+                                pauseBetweenAnimations={1}
+                            />
+                        </div>
+
+                        <div className="w-full md:w-auto flex justify-center md:justify-end">
+                            <button
+                                onClick={handleCreateNew}
+                                className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-3 md:py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors shadow-lg shadow-purple-900/20"
+                            >
+                                <Plus className="w-5 h-5" />
+                                <span>New Assistant</span>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Assistant Grid */}
