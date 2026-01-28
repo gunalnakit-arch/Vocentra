@@ -28,6 +28,8 @@ KONUŞMA TARZI:
 Her zaman TÜRKÇE konuş ve gerçek bir insan gibi davran!`,
     voice: "Aoede",
     language: "tr-TR",
+    provider: "voice",
+    providerAssistantId: "",
     files: [],
     createdAt: new Date(),
     updatedAt: new Date(),
