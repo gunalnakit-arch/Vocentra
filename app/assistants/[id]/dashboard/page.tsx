@@ -369,59 +369,61 @@ export default function AssistantDashboard({ params }: { params: Promise<{ id: s
                                                         {/* Charts Row */}
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                             {/* Emotional Trend Chart */}
-                                                            <div className="bg-zinc-900/40 border border-white/5 p-10 rounded-[3rem]">
-                                                                <div className="flex items-center gap-3 mb-8">
-                                                                    <TrendingUp className="w-5 h-5 text-purple-400" />
-                                                                    <h3 className="text-sm font-black uppercase tracking-widest italic">Duygu Grafiği (Trend)</h3>
-                                                                </div>
-                                                                <div className="h-48 w-full relative group">
-                                                                    <svg viewBox="0 0 500 100" className="w-full h-full preserve-3d">
-                                                                        <defs>
-                                                                            <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
-                                                                                <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-                                                                                <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-                                                                            </linearGradient>
-                                                                        </defs>
-                                                                        {/* Grid Lines */}
-                                                                        {[0, 25, 50, 75, 100].map(y => (
-                                                                            <line key={y} x1="0" y1={y} x2="500" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                                                                        ))}
-                                                                        {/* Area */}
-                                                                        <path
-                                                                            d={`M 0 100 ${analytics.emotionalTrend.map((v: number, i: number) => `L ${(i / (analytics.emotionalTrend.length - 1)) * 500} ${100 - v}`).join(' ')} L 500 100 Z`}
-                                                                            fill="url(#trendGradient)"
-                                                                        />
-                                                                        {/* Line */}
-                                                                        <path
-                                                                            d={analytics.emotionalTrend.map((v: number, i: number) => `${i === 0 ? 'M' : 'L'} ${(i / (analytics.emotionalTrend.length - 1)) * 500} ${100 - v}`).join(' ')}
-                                                                            fill="none"
-                                                                            stroke="#a855f7"
-                                                                            strokeWidth="3"
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                            className="drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
-                                                                        />
-                                                                        {/* Points */}
-                                                                        {analytics.emotionalTrend.map((v: number, i: number) => (
-                                                                            <circle
-                                                                                key={i}
-                                                                                cx={(i / (analytics.emotionalTrend.length - 1)) * 500}
-                                                                                cy={100 - v}
-                                                                                r="4"
-                                                                                fill="#18181b"
-                                                                                stroke="#a855f7"
-                                                                                strokeWidth="2"
-                                                                                className="hover:r-6 transition-all cursor-pointer"
+                                                            {analytics.emotionalTrend && Array.isArray(analytics.emotionalTrend) && (
+                                                                <div className="bg-zinc-900/40 border border-white/5 p-10 rounded-[3rem]">
+                                                                    <div className="flex items-center gap-3 mb-8">
+                                                                        <TrendingUp className="w-5 h-5 text-purple-400" />
+                                                                        <h3 className="text-sm font-black uppercase tracking-widest italic">Duygu Grafiği (Trend)</h3>
+                                                                    </div>
+                                                                    <div className="h-48 w-full relative group">
+                                                                        <svg viewBox="0 0 500 100" className="w-full h-full preserve-3d">
+                                                                            <defs>
+                                                                                <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
+                                                                                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
+                                                                                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+                                                                                </linearGradient>
+                                                                            </defs>
+                                                                            {/* Grid Lines */}
+                                                                            {[0, 25, 50, 75, 100].map(y => (
+                                                                                <line key={y} x1="0" y1={y} x2="500" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                                                                            ))}
+                                                                            {/* Area */}
+                                                                            <path
+                                                                                d={`M 0 100 ${analytics.emotionalTrend.map((v: number, i: number) => `L ${(i / (analytics.emotionalTrend.length - 1)) * 500} ${100 - v}`).join(' ')} L 500 100 Z`}
+                                                                                fill="url(#trendGradient)"
                                                                             />
-                                                                        ))}
-                                                                    </svg>
+                                                                            {/* Line */}
+                                                                            <path
+                                                                                d={analytics.emotionalTrend.map((v: number, i: number) => `${i === 0 ? 'M' : 'L'} ${(i / (analytics.emotionalTrend.length - 1)) * 500} ${100 - v}`).join(' ')}
+                                                                                fill="none"
+                                                                                stroke="#a855f7"
+                                                                                strokeWidth="3"
+                                                                                strokeLinecap="round"
+                                                                                strokeLinejoin="round"
+                                                                                className="drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]"
+                                                                            />
+                                                                            {/* Points */}
+                                                                            {analytics.emotionalTrend.map((v: number, i: number) => (
+                                                                                <circle
+                                                                                    key={i}
+                                                                                    cx={(i / (analytics.emotionalTrend.length - 1)) * 500}
+                                                                                    cy={100 - v}
+                                                                                    r="4"
+                                                                                    fill="#18181b"
+                                                                                    stroke="#a855f7"
+                                                                                    strokeWidth="2"
+                                                                                    className="hover:r-6 transition-all cursor-pointer"
+                                                                                />
+                                                                            ))}
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div className="flex justify-between mt-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                                                                        <span>Başlangıç</span>
+                                                                        <span>Gelişme</span>
+                                                                        <span>Sonuç</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="flex justify-between mt-4 text-[9px] font-black text-zinc-600 uppercase tracking-widest">
-                                                                    <span>Başlangıç</span>
-                                                                    <span>Gelişme</span>
-                                                                    <span>Sonuç</span>
-                                                                </div>
-                                                            </div>
+                                                            )}
 
                                                             {/* Radar Data / Call Center KPIs */}
                                                             <div className="bg-zinc-900/40 border border-white/5 p-10 rounded-[3rem]">

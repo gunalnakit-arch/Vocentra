@@ -72,6 +72,10 @@ async function migrate() {
                     metadata: call.metadata || {}
                 });
 
+            if (call.analytics) {
+                console.log(`> Call ${call.id} has analytics with ${Object.keys(call.analytics).length} keys. Upserting...`);
+            }
+
             if (error) {
                 console.error(`Error migrating call ${call.id}:`, error.message);
             }
