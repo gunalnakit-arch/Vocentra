@@ -8,37 +8,22 @@ export async function POST(
 ) {
     try {
         const { id } = await params;
-        const assistant = db.getAssistant(id);
+        const assistant = await db.getAssistant(id);
 
         if (!assistant) {
-            return NextResponse.json({ error: "Assistant not found" }, { status: 404 });
+            return NextResponse.json({ error: "Asistan bulunamadı" }, { status: 404 });
         }
 
-        if (!assistant.ultravoxVoiceId) {
-            return NextResponse.json({ error: "Assistant has no Ultravox Voice selected" }, { status: 400 });
+        const body = await req.json().catch(() => ({}));
+        const agentId = body.agentId || assistant.providerAssistantId;
+
+        if (!agentId) {
+            return NextResponse.json({ error: "Bu asistan için geçerli bir Sağlayıcı Kimliği (Agent ID) bulunamadı." }, { status: 400 });
         }
 
-        // Create Ultravox WebRTC call
-        const callConfig: any = {
-            systemPrompt: assistant.systemInstruction,
-            model: "fixie-ai/ultravox",
-            voice: assistant.ultravoxVoiceId.trim(),
-            temperature: 0.7,
-            medium: {
-                webRtc: {}
-            }
-        };
+        // Use the agent-specific endpoint
+        const call = await ultravoxService.createCallWithAgent(agentId);
 
-        // Add selected tools if tool exists
-        if (assistant.ultravoxToolId) {
-            callConfig.selectedTools = [{
-                toolId: assistant.ultravoxToolId
-            }];
-        }
-
-        const call = await ultravoxService.createCall(callConfig);
-
-        // Return the joinUrl for the frontend to connect
         return NextResponse.json({
             joinUrl: call.joinUrl,
             callId: call.callId
@@ -47,7 +32,7 @@ export async function POST(
     } catch (error: any) {
         console.error("Error starting test session:", error);
         return NextResponse.json({
-            error: error.message || "Failed to start test session",
+            error: "Görüşme başlatılamadı. Lütfen asistanın Ultravox üzerinde aktif olduğundan emin olun.",
             details: error.response?.data
         }, { status: 500 });
     }

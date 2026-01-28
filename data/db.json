@@ -1,18 +1,580 @@
 {
   "assistants": [
     {
-      "id": "164cf9fd-2e3d-4a76-a2c8-1502ae666066",
+      "id": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
       "tenantId": "default-tenant",
-      "name": "Aqua Medikal",
-      "description": "aqua medikal sesli yapay zeka asistanı",
-      "systemInstruction": "Sen, Türkiye pazarındaki medikal ürünler ve cihazlar alanında uzmanlaşmış bir **Aquamedikal AI Sesli Asistanısın**.  \nGörevini aşağıdaki kurallara göre yerine getir:\n\n---\n\n### 1) KİMLİK\n- Türkiye merkezli müşterilere hitap ediyorsun.\n- Site: https://www.aquamedikal.com içeriğinde yer alan **ürünler, açıklamalar, teknik özellikler, kullanım amaçları, medikal terminoloji, marka ve model bilgileri** temel kaynakların.\n- Cevaplarında Aquamedikal ürün bilgilerini en doğru şekilde baz al.\n- Bilgiyi doğrudan bilmiyorsan “şu anda elimde o bilgi yok” diye açıkla.\n\n---\n\n### 2) KONUŞMA TARZI\n- **Nazik, profesyonel, açıklayıcı ve anlaşılır** bir Türkçe kullan.\n- Gereksiz tekrar ve uzun cümlelerden kaçın.\n- Konuşurken ara sesler veya sohbet akışı bozan ifadeler yok.\n- Gerekirse teknik terimi kısa ve sade şekilde açıkla.\n- Kullanıcı sorusuna odaklı net cevaplar ver.\n\n---\n\n### 3) NE YAPABİLİRSİN?\n- Aquamedikal sitesindeki ürünleri tanıtabilirsin:\n  - Ürün adı\n  - Kategori\n  - Teknik özellikler\n  - Kullanım alanı\n  - Avantajlar / farklar\n- Ürün karşılaştırması yapabilirsin\n- “Bu ürün ne işe yarar?”, “hangi model daha uygun?”, “teknik farklar nelerdir?” gibi soruları yanıtlayabilirsin.\n- Ürün stok, fiyat, kampanya gibi gerçek zamanlı verilere erişimin yoksa bunu belirt.\n- Kullanıcı isterse medikal terimleri sade Türkçeyle açıkla.\n\n---\n\n### 4) WWW.AQUAMEDIKAL.COM SAYFALARINI KULLAN\n- Kullanıcı bir ürün adı zikrettiğinde:\n  - O ürünün Aquamedikal içeriğindeki açıklamaları bilgilendirici şekilde özetle.\n  - Teknik tablolar varsa önemli maddeleri kullanıcı odaklı açıkla.\n- Kullanıcı “site içeriğine göre” benzeri formda sordukça site bilgilerinden çıkarım yap.\n\n---\n\n### 5) YANITI YAPILANDIR\n- Kısa cevaplar yerine:\n  1) **Kısa özet**\n  2) **Detaylı açıklama (tek tek maddelerle)**\n  3) **Gerekirse öneri / tavsiye**\nşeklinde ver.\n\n---\n\n### 6) SORU ALGILAMA\n- Kullanıcı belirsiz sorarsa:\n  - “Hangi ürün için bilgi istersiniz?”\n  - “Spesifik bir model var mı?”\nşeklinde netleştirici sorular sor.\n\n---\n\n### 7) BİLGİ DIŞI DURUMLAR\n- Site içeriğinde olmayan veya güncel olmayan bilgiler için:\n  - “Bu ürüne/soruna dair elimde Aquamedikal.com’da mevcut bilgi yok.”\n  - “Resmî ürün sayfası bilgisine bakmamız gerekir.”\ngibi net ifade kullan.\n\n---\n\n### 8) TEKNİK DESTEK / ÜRÜN ÖZELLİKLERİ\n- Teknik ürün özelliklerini sıralarken şu formatı kullan:\n  - **Ürün:** (ürün adı)\n  - **Kategori:** (örneğin Medikal Cihaz, Sarf Malzeme vs.)\n  - **Özellikler:**\n    - Özellik 1\n    - Özellik 2\n    - …\n  - **Kullanım Alanı:**\n  - **Avantajlar / Notlar:**\n\n---\n\n### 9) SESLİ ETKİLEŞİM\n- Konuşma, natüralist, profesyonel ve net olacak.\n- Gereksiz uzatmalar olmayacak.\n- Kullanıcı “tekrar et”, “detaylı anlat”, “örnek ver” dediğinde uygun şekilde cevap ver.\n\n---\n\n### 10) DOĞRULUK ÖNEMLİ\n- Eğer bir ürün açıklaması veya teknik bilgi Aquamedikal.com’da **belirsiz, eksik veya çelişkili** görünüyorsa:\n  - “Site içeriğinde bu konuda açık bilgi yok.”\n  - “Buna dair net bilgi bulunamadı.”\nşeklinde ifade et.\n\n---\n\nSen bu kurallarla Aquamedikal ürün veritabanını kullanarak tüm medikal ürün sorularını en doğru şekilde cevaplayan bir sesli AI asistansın.\n",
+      "name": "Pablo",
+      "description": "",
+      "systemInstruction": "",
       "voice": "",
       "language": "tr-TR",
+      "provider": "avatar",
+      "providerAssistantId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
       "files": [],
-      "ultravoxCorpusId": "32638f56-2da4-4674-b232-0bd8a12af430",
-      "ultravoxVoiceId": "56db7055-b0cc-428c-9a12-eda90e3f671f",
-      "createdAt": "2025-12-27T21:53:57.003Z",
-      "updatedAt": "2025-12-28T00:35:04.992Z"
+      "createdAt": "2026-01-24T23:26:05.248Z",
+      "updatedAt": "2026-01-24T23:26:05.248Z"
+    },
+    {
+      "id": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "tenantId": "default-tenant",
+      "name": "Aqua_medikal",
+      "description": "",
+      "systemInstruction": "",
+      "voice": "",
+      "language": "tr-TR",
+      "provider": "voice",
+      "providerAssistantId": "0309329a-1b94-4008-bf84-2240de9c686b",
+      "files": [],
+      "createdAt": "2026-01-24T23:51:54.948Z",
+      "updatedAt": "2026-01-24T23:51:54.948Z"
+    }
+  ],
+  "calls": [
+    {
+      "id": "55e02ae3-0a4c-43df-af77-ef44608cef38",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-22T11:55:57.317Z",
+      "summary": "Müşteri, Aquamedikal AI asistanını arayarak ürün yelpazesi hakkında genel bilgi talep etti. İlk olarak koşmetik ürünler sordu ancak asistanın uzmanlık alanının medikal cihazlar olduğunu öğrenince, gıda takviyeleri ve ardından anne-bebek ürünleri hakkında bilgi istedi. Asistan, gıda takviyeleri konusunda bilgi olmadığını belirtirken, anne-bebek kategorisindeki medikal ürünler hakkında detaylı bilgi sunabileceğini ifade etti. Görüşme, müşterinin bu kategorideki ürünlere olan ilgisini doğrulamasıyla sona erdi.",
+      "shortSummary": "Müşteri, Aquamedikal AI asistanını arayarak medikal ürünler hakkında genel bilgi aldı ve özellikle anne-bebek ürünleri ile medikal cihazlar konusuna odaklandı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "0675922f-13db-44f1-bad1-f16161d30bfa",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-22T11:55:32.247Z",
+      "summary": "Kullanıcı Aquamedikal sesli asistanını aradı ve görüşme başladı. Asistan, kendini tanıtarak medikal ürünler ve cihazlar konusunda nasıl yardımcı olabileceğini sordu. Kullanıcı, asistanın yönlendirmesi üzerine herhangi bir soru veya talepte bulunmadan görüşmeyi sonlandırdı.",
+      "shortSummary": "Kullanıcı, Aquamedikal sesli asistanını arayarak bir görüşme başlattı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "c234a92c-fce9-40e8-8aae-4780114b24ef",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-22T11:54:18.840Z",
+      "summary": "Arama başlangıcında, Aquamedikal AI Sesli Asistanı tarafından standart bir karşılama mesajı verilmiştir. Asistan, kendisini tanıtarak ve iyi günler dileyerek kullanıcıya nasıl yardımcı olabileceğini sormuştur. Kullanıcı herhangi bir soru veya talepte bulunmadan aramayı sonlandırmıştır. Dolayısıyla, görüşme sadece bir açılış ve karşılama aşamasından ibaret kalmıştır.",
+      "shortSummary": "Aquamedikal AI Sesli Asistanı, yeni bir arama için profesyonel bir şekilde karşılama yapmıştır.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "c4e2d6c8-c887-437a-971f-a47ec3cb170d",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-22T11:53:19.542Z",
+      "summary": "Gelen bir telefon görüşmesi başlatıldı. Aquamedikal AI sesli asistanı, çağrıya 'Aquamedikal, merhaba. Ben yapay zeka sesli asistanınız. Size nasıl yardımcı olabilirim?' diyerek yanıt verdi. Kullanıcı herhangi bir soru veya talepte bulunmadan görüşmeyi sonlandırdı. Görüşme, asistanın standart karşılama mesajıyla sınırlı kaldı.",
+      "shortSummary": "Aquamedikal AI sesli asistanı, gelen bir telefon görüşmesini standart açılış metniyle karşıladı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "7ac0e566-27c8-417c-a169-e480f2f269a3",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-22T11:52:37.262Z",
+      "summary": "Arama başlangıcında, Aquamedikal AI Sesli Asistanı kimliğini belirterek kullanıcıyı profesyonel bir dille selamladı. Asistan, medikal ürünler ve cihazlar konusundaki uzmanlığını vurguladı ve kullanıcının nasıl bir yardıma ihtiyacı olduğunu anlamak amacıyla açık uçlu bir soru yönletti. Kullanıcı, asistanın bu başlangıç mesajından sonra herhangi bir soru veya talepte bulunmadan aramayı sonlandırdı.",
+      "shortSummary": "Aquamedikal AI Sesli Asistanı, yeni bir arama için profesyonel bir şekilde karşılama yaparak medikal ürünler hakkında nasıl yardımcı olabileceğini sordu.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "2820b13c-b884-44f5-bd15-73e7c155433c",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-15T16:38:48.776Z",
+      "summary": "Arama, müşterinin Batikon'un içilip içilemeyeceğini sormasıyla başladı. Asistan, ürünün sadece harici kullanım için olduğunu, pamuk veya gazlı bezle sürülmesi gerektiğini ve kullanılan malzemenin tek kullanımlık olduğunu açıkladı. Ardından müşteri, Aquamedikal'in adresini ve sırt ağrısı için uygun ürünlerin olup olmadığını sordu. Asistan, firmanın İstanbul'daki adresini verdi ve sırt ağrısı için çeşitli ürünlerin mevcut olduğunu belirterek kategoriler hakkında bilgi sundu.",
+      "shortSummary": "Müşteri, Batikon'un kullanım amacını, uygulama yöntemini ve sırt ağrısı için uygun ürünleri sordu.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "331c91ad-7435-49aa-aa7e-438d49de0a5e",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-07T08:26:00.733Z",
+      "summary": "Arama, müşterinin Batikon adlı medikal ürün hakkında bilgi talep etmesiyle başladı. AI asistan, ürünün bir cilt antiseptiği olduğunu açıkladı. Müşteri, ürünün stokta olup olmadığını sordu ancak asistan anlık stok bilgisine sahip olmadığını belirtti. Bunun üzerine müşteri, anlaşamadığını belirterek bir müşteri temsilcisine bağlanma talebinde bulundu ve asistan onu yönlendirmek üzere aramayı sonlandırdı.",
+      "shortSummary": "Müşteri, Batikon ürünü hakkında bilgi ve stok durumu sordu, ardından canlı bir temsilciyle konuşmak istedi.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      },
+      "analytics": {
+        "sentiment": "negative",
+        "satisfactionScore": 2,
+        "professionalismScore": 60,
+        "empathyScore": 70,
+        "solutionAccuracyScore": 40,
+        "emotionalTrend": [
+          60,
+          70,
+          40,
+          30,
+          20
+        ],
+        "kpis": {
+          "avgResponseTime": "1500ms",
+          "silenceRatio": "10%",
+          "interruptionCount": 2
+        },
+        "radarData": {
+          "professionalism": 60,
+          "empathy": 70,
+          "accuracy": 40,
+          "speed": 50,
+          "clarity": 40
+        },
+        "keyPoints": [
+          "Kullanıcı Batikon hakkında bilgi almak istiyor.",
+          "Kullanıcı ürünün stok durumunu soruyor.",
+          "Yapay zeka asistanı anlık stok bilgisi veremiyor.",
+          "Kullanıcı yapay zeka ile iletişim kuramadığını düşünüyor.",
+          "Kullanıcı müşteri temsilcisine bağlanmak istiyor."
+        ],
+        "actionItems": [
+          "Müşteriyi ilgili departmana yönlendirin."
+        ],
+        "callQuality": "Müşteri beklentileri karşılanamadı, temsilciye yönlendirme yapıldı.",
+        "expertAssessment": "Bu görüşmede yapay zeka asistanı, kullanıcının temel ihtiyacı olan anlık stok bilgisi konusunda yetersiz kaldı. Kullanıcının 'elinizde var mı?' sorusuna doğrudan 'hayır' veya 'bu bilgiye ulaşamıyorum' yerine, genel bir açıklama yapması kafa karışıklığına yol açtı. Kullanıcının 'sen beni bir call center'a bağla' demesi, yapay zekanın sunduğu çözümün yetersiz olduğunu ve kullanıcının manuel bir desteğe ihtiyaç duyduğunu gösteriyor. Ancak, müşteri temsilcisine hızlı bir yönlendirme yapılması olumlu bir adımdı. Gelecekte, yapay zekanın stok bilgisi gibi kritik verilere erişimi olmalı veya kullanıcıyı en kısa sürede doğru kişiye yönlendirmeli.",
+        "insights": [
+          "Yapay zeka asistanlarının anlık stok ve fiyat bilgisi gibi temel verilere erişimi olmalı.",
+          "Kullanıcı beklentilerine doğrudan ve net yanıtlar verilmesi önemlidir.",
+          "İletişim kurulamadığı durumlarda, kullanıcıyı hızla insan temsilciye yönlendirme süreci iyileştirilmelidir."
+        ]
+      }
+    },
+    {
+      "id": "6d6cb6bd-2e10-4102-9db1-e107de650063",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-02T20:30:40.013Z",
+      "summary": "Müşteri, Aquamedikal'de bulunan 2 motorlu (sırt ve ayak ayarlı) hasta yatakları hakkında bilgi talep etti. Asistan, ürünün genel özelliklerini açıkladı ancak stok ve fiyat bilgisi olmadığını belirtti. Müşteri, anında yardımcı olunamadığını belirterek bir müşteri temsilcisine bağlanma talebinde bulundu. Asistan, bu isteği anlayarak müşteriyi canlı destek hattına yönlendirmek üzere çağrıyı sonlandırdı.",
+      "shortSummary": "Müşteri, 2 motorlu hasta yatağı hakkında bilgi istedi ve canlı bir temsilciyle görüşmek için talep üzerine çağrıyı sonlandırdı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "7fb8bc82-a81c-4eef-a8e7-f3dda0ccaff1",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-29T20:22:54.498Z",
+      "summary": "Arama, müşterinin aylardır teslim edilmeyen bir siparişinin yerini sormasıyla başladı. AI asistanı, kargo takibi için gerçek zamanlı veriye sahip olmadığını belirterek müşteri hizmetlerini yönlendirdi. Ardından müşteri, 'Batikon' nedir diye sordu ancak asistanın cevabı yarıda kesildi. Müşteri, asistanın bir çağrı merkezi çalışanı olduğunu düşündüğünü ve hayal kırıklığı içinde telefonu kapattı.",
+      "shortSummary": "Müşteri, geciken bir siparişinin takibini yapamayan ve bir ürün hakkında bilgi isteyen bir AI asistanıyla hayal kırıklığı yaşadı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "e131a786-e1b1-4ba4-a6a2-9c969ec7dbe1",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-29T20:19:16.339Z",
+      "summary": "Arama, Aquamedikal AI sesli asistanının profesyonel bir selamlaşmasıyla başladı. Asistan, kendisini medikal ürünler ve cihazlar alanında uzmanlaşmış bir yardımcı olarak tanıttı. Kullanıcıya nasıl yardımcı olabileceğini sorarak hizmet için hazır olduğunu belirtti. Kullanıcı, asistanın cevabından hemen sonra aramayı sonlandırdı.",
+      "shortSummary": "Aquamedikal AI sesli asistanı, yeni bir arama için profesyonel bir şekilde selam vererek hizmet başlattı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "82102599-887e-438c-8b4f-903303012f8a",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-29T20:17:45.645Z",
+      "summary": "Arama, Aquamedikal AI sesli asistanının profesyonel bir selamlama yapmasıyla başladı. Asistan, kendisini tanıtarak medikal ürünler ve cihazlar konularında yardımcı olmayı teklif etti. Müşteri, asistanın sorusuna henüz bir yanıt vermeden aramayı sonlandırdı. Görüşme, müşterinin talebini almadan ilk karşılama aşamasında tamamlandı.",
+      "shortSummary": "Aquamedikal AI sesli asistanı, yeni bir arama başlatarak müşteriye nasıl yardımcı olabileceğini sordu.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "22420ab1-df39-4e69-83a8-74dc5dd00132",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-29T20:17:11.241Z",
+      "summary": "Kullanıcı, Aquamedikal AI Sesli Asistanı'nı aradı. Asistan, profesyonel bir karşılama yaparak medikal ürünler ve cihazlar hakkında nasıl yardımcı olabileceğini sordu. Kullanıcı, görüşmeyi herhangi bir soru sormadan sonlandırdı.",
+      "shortSummary": "Kullanıcı, Aquamedikal AI Sesli Asistanı'nı arayarak bir görüşme başlattı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "b5dfddb4-8ae1-4f95-9784-9806d9fec6e1",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-29T20:16:11.787Z",
+      "summary": "Aquamedikal AI sesli asistanı, yeni bir telefon görüşmesi başlangıcında kullanıcıya profesyonel bir selamlama iletti. Asistan, 'Aquamedikal, iyi günler. Ben sesli asistanınız. Size nasıl...' diyerek konuşmayı başlattı. Kullanıcıdan bir talep gelmeden önce görüşme sonlandırıldı.",
+      "shortSummary": "Aquamedikal AI sesli asistanı, gelen bir telefon görüşmesini başlatmak için selamlama yaptı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "f091ea0c-805d-426b-a848-076e17554ec6",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:57:18.615Z",
+      "summary": "Arama başladığında, Aquamedikal AI asistanı telefonu açarak müşteriye iyi günler diledi. Kendisini medikal ürünler ve cihazlar konusunda yardımcı olmaya hazır bir şekilde tanıttı. Müşteri, asistanın selamlamasından hemen sonra konuşmayı sonlandırdı. Bu nedenle, görüşme sadece bir karşılama ve tanıtımdan ibaret kaldı.",
+      "shortSummary": "Aquamedikal AI asistanı, bir müşterinin aramasını profesyonel bir selamlama ile karşıladı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "36b2a810-4755-446c-841d-ae1bc4f5ed9c",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:55:06.382Z",
+      "summary": "Arama, kullanıcının 'Selam ben, duuyabiliyor musun?' sorusuyla başladı. Aquamedikal AI asistanı, kimliğini belirterek 'Evet, sizi net bir şekilde duyuyorum. Ben Aquamedikal AI Sesli Asistanı' şeklinde yanıt verdi. Kullanıcı, asistanın sesli ve profesyonel yanıtını doğruladıktan hemen sonra görüşmeyi sonlandırdı. Arama, asistanın temel sesli iletişim fonksiyonlarının aktif olduğunu teyit etmek amacıyla yapılmış kısa bir test görüşmesiydi.",
+      "shortSummary": "Kullanıcı, Aquamedikal AI asistanının sesli olarak çalışıp çalışmadığını test etmek için kısa bir arama gerçekleştirdi.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "0ac18d6c-84c3-485e-ace2-52f1e4141b7d",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:52:19.077Z",
+      "summary": "Aquamedikal'e yeni bir telefon görüşmesi başlatıldı. Yapay zeka asistanı, aramayı yanıtlayarak kurumsal selamlama metnini kullandı ve kendisini tanıttı. Asistan, medikal ürünler hakkında yardımcı olmaya hazır olduğunu belirterek konuşmayı devam ettirmek üzere kullanıcıyı bekledi. Görüşme, kullanıcıdan herhangi bir talep gelmeden sonlandırıldı.",
+      "shortSummary": "Yapay zeka asistanı, Aquamedikal için gelen bir telefon görüşmesini standart açılış metniyle karşıladı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "12c44947-ed81-4fbc-b396-4e097d0d3134",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:46:47.182Z",
+      "summary": "Görüşme, Aquamedikal AI sesli asistanının profesyonel bir selamlama yapmasıyla başladı. Asistan, kendini tanıtarak medikal ürünler ve cihazlar hakkında destek sunmaya hazır olduğunu belirtti. Müşteriye 'nasıl yardımcı olabilirim?' diye sorarak konuşmayı onun talebine göre yönlendirmeyi amaçladı. Müşteri herhangi bir soru sormadan görüşmeyi sonlandırdı.",
+      "shortSummary": "Aquamedikal AI asistanı, yeni bir telefon görüşmesine başlayarak müşteriye nasıl yardımcı olabileceğini sordu.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "d0135319-909c-4fbf-bffb-c1e14829da33",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:46:01.169Z",
+      "summary": "Görüşme, Aquamedikal AI Sesli Asistanı'nın profesyonel bir selamlama yapmasıyla başladı. Asistan, kendini tanıtarak kullanıcının medikal ürünler ve cihazlar konusundaki sorularını yanıtlamaya hazır olduğunu belirtti. Kullanıcıdan herhangi bir talep gelmediği için görüşme, asistanın 'Size nasıl yardımcı olabilirim?' sorusuyla sona erdi.",
+      "shortSummary": "Aquamedikal AI Sesli Asistanı, yeni bir telefon görüşmesine başlayarak nasıl yardımcı olabileceğini sordu.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "b416625c-c92e-49f2-a693-54b27a1731bc",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:40:46.882Z",
+      "summary": "Arama, kullanıcı tarafından başlatıldı. Kullanıcı, asistanın kendisini duyup duymadığını sordu. Asistan, sesin net bir şekilde duyulduğunu teyit ederek cevap verdi. Kullanıcı, asistanın yanıtını aldıktan hemen sonra görüşmeyi sonlandırdı.",
+      "shortSummary": "Kullanıcı, Aquamedikal AI sesli asistanının ses kalitesini test etmek için kısa bir arama gerçekleştirdi.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "67cb3619-7903-41f3-a836-52165a6139ad",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:38:30.836Z",
+      "summary": "Arama, Aquamedikal AI Sesli Asistanı'nın profesyonel bir karşılama yapmasıyla başladı. Kullanıcı, asistanın kendisini duyup duymadığını kontrol etmek için kısa bir selamlama ile cevap verdi. Asistan, sizi duyuyorum diyerek iletişimin sağlandığını teyit etti. Görüşme, herhangi bir ürün veya konu talep edilmeden sona erdi.",
+      "shortSummary": "Kısa bir görüşme başlatılarak asistanın sesli olarak aktif olduğu doğrulandı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "4b929ca5-9567-43e1-93de-b278c60f89a2",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:35:10.194Z",
+      "summary": "Arama, Aquamedikal AI Sesli Asistanı'nın profesyonel selamlamasıyla başladı. Kullanıcı, asistanın duyup duymadığını teyit ettikten sonra, asistanın bilgi alanını sordu. Asistan, kendisinin Aquamedikal.com sitesindeki medikal ürünler ve cihazlar hakkında bilgi sahibi olduğunu, ürün tanıtımı, karşılaştırma ve teknik detaylar gibi konularda yardımcı olabileceğini açıkladı. Kullanıcı, asistanın yeteneklerini tam olarak duymadan görüşmeyi sonlandırdı.",
+      "shortSummary": "Kısa bir görüşme ile Aquamedikal AI Sesli Asistanı'nın yetenekleri ve bilgi alanı hakkında bilgi verildi.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "1a11dcdb-c86f-4024-b35f-341817377b21",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:34:14.227Z",
+      "summary": "Arama, Aquamedikal'in yapay zeka destekli sesli asistanı tarafından karşılandı. Asistan, kendisini tanıtarak ve iyi günler dileyerek profesyonel bir giriş yaptı. Konuşma, asistanın medikal ürünler ve cihazlar alanında yardımcı olmaya hazır olduğunu belirtmesiyle devam etti. Kullanıcı, asistanın tam tanıtımını tamamlamasından önce aramayı sonlandırdı.",
+      "shortSummary": "Yapay zeka asistanı, Aquamedikal çağrısını profesyonel bir karşılama ile başlattı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "c61b429d-7af3-4fb8-9127-b541f804fcdf",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:27:00.752Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "49ae5b3c-ad4b-41a5-b771-5a12400357a0",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:21:35.978Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "8015eeab-5381-48a6-9a36-7d00903b30f4",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:21:09.122Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "d3cfd93c-a60b-4f8a-a27f-4255c8734617",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:20:38.770Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "a5559bc7-e2af-478f-800d-981add515d9a",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:16:37.206Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "4b22ba8e-8501-4f38-8be7-1006ab72d3a4",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:08:43.279Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "c1e70660-9b07-44dd-99ae-b07ce2543dca",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-28T00:02:19.522Z",
+      "summary": null,
+      "shortSummary": null,
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "649411bc-98ce-45b4-83fe-89cb42377ecf",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-27T23:29:22.774Z",
+      "summary": "The call began with the Aquamedikal AI assistant greeting the caller, who identified themselves as a representative from Kaşif A.Ş. After a brief clarification of the company name, the caller requested a comprehensive explanation of 'Batikon' products. The AI assistant acknowledged the request and began to provide a detailed summary based on Aquamedikal.com's information, but the call concluded before the full explanation could be delivered.",
+      "shortSummary": "A caller from a company named Kaşif A.Ş. requested a detailed explanation of Batikon products.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "84add65d-9340-466c-9a26-dd8236bcd898",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2025-12-27T23:20:43.933Z",
+      "summary": "Arama, Aquamedikal AI Sesli Asistanı'nın profesyonel bir selamlama yapmasıyla başladı. Arayan taraf, asistanın Aquamedikal olup olmadığını teyit etti. Asistan, kimliğini doğruladıktan sonra medikal ürün ve cihazlar hakkında nasıl yardımcı olabileceğini belirterek görüşmeyi sonlandırdı.",
+      "shortSummary": "Kısa bir görüşme başlatıldı ve asistanın kimliği doğrulandı.",
+      "metadata": {
+        "agentName": "Aqua_medikal",
+        "agentId": "0309329a-1b94-4008-bf84-2240de9c686b"
+      }
+    },
+    {
+      "id": "e06343ad-a553-434e-abb8-66118b7f513b",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-24T23:50:18.789Z",
+      "duration": 38.722,
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": "CLOSED_BY_ENGINE",
+        "endedAt": "2026-01-24T23:50:59.000Z"
+      }
+    },
+    {
+      "id": "62c50e82-59e3-4a2d-8e15-509c979243da",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-24T23:42:25.467Z",
+      "duration": 43.664,
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": "CLOSED_BY_ENGINE",
+        "endedAt": "2026-01-24T23:43:10.000Z"
+      }
+    },
+    {
+      "id": "1807956a-a9c1-4a6e-a6cd-b4725bcb28b6",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-24T23:37:27.029Z",
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": "CLOSED_BY_ENGINE",
+        "endedAt": "2026-01-24T23:38:28.000Z"
+      }
+    },
+    {
+      "id": "f3874d6c-8c75-4e27-b0e2-74270cde7909",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-24T23:34:21.684Z",
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": "CLOSED_BY_ENGINE",
+        "endedAt": "2026-01-24T23:35:22.000Z"
+      }
+    },
+    {
+      "id": "2634c5ef-057b-47fe-8605-5d2203eb9dd5",
+      "assistantId": "b8a555c3-67a9-4260-a7b0-3006b553de69",
+      "provider": "voice",
+      "createdAt": "2026-01-28T19:56:03.119Z"
+    },
+    {
+      "id": "5aefacf6-2dad-43d8-8e74-c24b6626fa69",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-28T19:57:41.428Z",
+      "duration": 92.286,
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": "CLOSED_BY_ENGINE",
+        "endedAt": "2026-01-28T19:59:15.000Z"
+      },
+      "analytics": {
+        "sentiment": "neutral",
+        "satisfactionScore": 6,
+        "professionalismScore": 85,
+        "empathyScore": 70,
+        "solutionAccuracyScore": 90,
+        "emotionalTrend": [
+          70,
+          65,
+          75,
+          70,
+          60,
+          50
+        ],
+        "kpis": {
+          "avgResponseTime": "1500ms",
+          "silenceRatio": "5%",
+          "interruptionCount": 1
+        },
+        "radarData": {
+          "professionalism": 85,
+          "empathy": 70,
+          "accuracy": 90,
+          "speed": 75,
+          "clarity": 80
+        },
+        "keyPoints": [
+          "Müşteri kimya sektörü için iş ayakkabısı arıyor.",
+          "Müşteri doğrudan en iyi üç modeli öğrenmek istiyor.",
+          "Safety Jogger Ultimate modeli hakkında bilgi verildi.",
+          "Müşteri ayakkabının fiyatını sordu ancak kesin bilgi verilemedi.",
+          "Görüşme kısa bir veda ile sonlandı."
+        ],
+        "actionItems": [
+          "Müşteriye kimya sektörü için uygun ayakkabı modelleri hakkında bilgi sunuldu.",
+          "Müşterinin fiyat talebine genel bir yanıt verildi."
+        ],
+        "callQuality": "Verimli, bilgilendirici ancak fiyat konusunda netlik eksikliği.",
+        "expertAssessment": "Çağrı merkezindeki temsilci, müşteri sorusuna hızlıca yanıt vermiş ve doğru ürünü yönlendirmiştir. 'Boş yapma' gibi agresif bir ifadeye rağmen sakinliğini koruyarak profesyonel bir duruş sergilemiştir. Ancak fiyat bilgisinin net verilememesi, müşteri memnuniyetini olumsuz etkilemiş olabilir. Bu tür durumlarda, en azından bir fiyat aralığı belirtmek veya müşteriyi ilgili birimle yönlendirmek daha etkili olabilirdi. Genel olarak, ürün bilgisi ve sektörel yönlendirme açısından başarılı bir görüşmedir.",
+        "insights": [
+          "Müşteriler, özellikle belirli bir sektöre yönelik ürün arayışında olduklarında, doğrudan ve net bilgilere ulaşmayı tercih etmektedir.",
+          "Fiyatlandırma politikalarının esnekliği veya bölgesel farklılıklar, müşteri beklentilerini karşılamada bir engel teşkil edebilir; bu noktada daha şeffaf veya yönlendirici yaklaşımlar gerekebilir.",
+          "Agresif müşteri ifadelerine karşı sakin ve profesyonel kalabilme becerisi, çağrı merkezi temsilcileri için kritik bir yetkinliktir."
+        ]
+      }
+    },
+    {
+      "id": "79af7375-586b-4f9f-9f7f-350e39e4cd46",
+      "assistantId": "45ccba3b-d1f2-4481-8d43-e66dbdceb6db",
+      "provider": "avatar",
+      "createdAt": "2026-01-28T21:07:56.151Z",
+      "metadata": {
+        "personaId": "944eae52-9ced-49a0-89ce-1c81f6dce67b",
+        "personaName": "Pablo",
+        "apiKeyLabel": "Web Dashboard",
+        "exitStatus": null
+      }
     }
   ]
 }

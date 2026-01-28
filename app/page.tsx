@@ -1,208 +1,93 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
-import { AuroraBackground } from "@/components/AuroraBackground";
-import { Hero } from "@/components/Hero";
-import { CallAnalytics } from "@/components/CallAnalytics";
-import { Typewriter } from "@/components/Typewriter";
-import { Assistant } from "@/lib/types";
-import { Users, Mic, PhoneOff, Loader2 } from "lucide-react";
-import TrueFocus from "@/components/TrueFocus";
-import axios from "axios";
-import { useUltravoxSession } from "@/hooks/useUltravoxSession";
+import { SplineSceneBasic } from "@/components/ui/spline-scene-basic";
+import { ArrowRight, Zap, Shield, Globe, Link2, Mic, User } from "lucide-react";
+import DemoModal from "@/components/DemoModal";
 
-export default function Home() {
+export default function LandingPage() {
     const router = useRouter();
-    const [assistant, setAssistant] = useState<Assistant | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [sessionStatus, setSessionStatus] = useState<"idle" | "connecting" | "connected" | "finished">("idle");
-    const [callId, setCallId] = useState<string | null>(null);
-    const [callAnalytics, setCallAnalytics] = useState<any>(null);
-    const [showAnalytics, setShowAnalytics] = useState(false);
-
-    const { connect, disconnect, isConnected, session, status, error: ultravoxError } = useUltravoxSession();
-
-    useEffect(() => {
-        const loadDefault = async () => {
-            try {
-                const storedId = localStorage.getItem("vocentra_selected_assistant");
-                if (storedId) {
-                    const res = await axios.get(`/api/assistants/${storedId}`);
-                    setAssistant(res.data);
-                } else {
-                    const res = await axios.get("/api/assistants");
-                    if (res.data.length > 0) {
-                        setAssistant(res.data[0]);
-                    }
-                }
-            } catch (e) {
-                console.error("Failed to load assistant", e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadDefault();
-    }, []);
-
-    const handleStartTest = async () => {
-        if (!assistant) return;
-        setSessionStatus("connecting");
-        try {
-            const res = await axios.post(`/api/assistants/${assistant.id}/test-session`);
-            const { joinUrl, callId: newCallId } = res.data;
-
-            setCallId(newCallId);
-            await connect(joinUrl);
-            setSessionStatus("connected");
-
-        } catch (e: any) {
-            console.error("Test session failed", e);
-            const msg = e.response?.data?.error || e.message || "Failed to start test session";
-            alert(`Error: ${msg}`);
-            setSessionStatus("idle");
-        }
-    };
-
-    const handleEndCall = async () => {
-        disconnect();
-        setSessionStatus("finished");
-
-        // Fetch call analytics
-        if (callId) {
-            try {
-                const res = await axios.get(`/api/calls/${callId}`);
-                setCallAnalytics(res.data);
-                setShowAnalytics(true);
-            } catch (e) {
-                console.error("Failed to fetch call analytics", e);
-            }
-        }
-    };
+    const [isDemoModalOpen, setIsDemoModalOpen] = React.useState(false);
 
     return (
-        <main className="relative w-full min-h-screen text-white">
-            <AuroraBackground>
-                <div className="relative z-10 flex flex-col min-h-screen w-full max-w-6xl mx-auto p-4 md:p-6">
-                    <header className="flex justify-between items-start py-8 px-2 md:px-0">
-                        <div className="flex flex-col gap-6">
-                            <div className="py-2">
-                                <TrueFocus
-                                    sentence="Vocentra AI"
-                                    manualMode={false}
-                                    blurAmount={5}
-                                    borderColor="rgba(147, 51, 234, 1)"
-                                    animationDuration={2}
-                                    pauseBetweenAnimations={1}
-                                />
-                            </div>
-                            {assistant && (
-                                <h2 className="text-xl md:text-3xl font-bold italic text-purple-200 truncate max-w-[250px] md:max-w-none pl-1">
-                                    <Typewriter text={`Testing: ${assistant.name}`} speed={80} />
-                                </h2>
-                            )}
+        <main className="relative w-full min-h-screen text-white bg-black selection:bg-white selection:text-black">
+            {/* Modal */}
+            <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
+
+            {/* Header */}
+            <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+                <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+                    <div className="flex items-center gap-8">
+                        <span className="text-xl font-black tracking-tighter">VOCENTRA AI</span>
+                        <nav className="hidden md:flex items-center gap-6">
+                            <button onClick={() => router.push("/")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Homepage</button>
+                            <button className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Pricing</button>
+                            <button onClick={() => router.push("/assistants")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Admin</button>
+                            <button onClick={() => router.push("/assistants")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Dashboard</button>
+                        </nav>
+                    </div>
+                    <button
+                        onClick={() => setIsDemoModalOpen(true)}
+                        className="px-5 py-2 bg-white text-black hover:bg-zinc-200 rounded-xl font-bold transition-all active:scale-95 text-sm"
+                    >
+                        Try demo
+                    </button>
+                </div>
+            </header>
+
+            <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                {/* Hero Section with Spline */}
+                <section className="mb-24">
+                    <SplineSceneBasic onDemoClick={() => setIsDemoModalOpen(true)} />
+                </section>
+
+                {/* Company Mission / Services */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32 items-center">
+                    <div className="space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-purple-400">
+                            Professional AI Solutions
                         </div>
-                        <div className="flex gap-2 pt-2">
-                            <button
-                                onClick={() => router.push("/assistants")}
-                                className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                                title="Manage Assistants"
-                            >
-                                <Users className="w-5 h-5" />
-                            </button>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-tight">
+                            Sesli ve Görüntülü <br /> AI Entegrasyonu
+                        </h2>
+                        <p className="text-zinc-400 text-lg leading-relaxed max-w-xl">
+                            Vocentra, işletmeler için otonom sesli çağrı merkezleri ve web sitelerine saniyeler içinde entegre edilebilen gerçek zamanlı görüntülü AI asistanlar geliştirir.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/5 hover:border-white/10 transition-colors">
+                            <Mic className="w-8 h-8 text-purple-400 mb-4" />
+                            <h4 className="font-bold mb-2">Voice Call Center</h4>
+                            <p className="text-zinc-500 text-sm">7/24 kesintisiz, doğal dilde konuşan sesli asistanlar.</p>
                         </div>
-                    </header>
-
-                    <div className="flex-1 flex flex-col items-center justify-center relative">
-
-                        {sessionStatus === "idle" && (
-                            <div className="animate-in fade-in zoom-in duration-500 text-center">
-                                {loading ? (
-                                    <Loader2 className="w-10 h-10 animate-spin mx-auto text-purple-500" />
-                                ) : (
-                                    <>
-                                        {assistant ? (
-                                            <Hero onStart={handleStartTest} />
-                                        ) : (
-                                            <div className="bg-black/40 p-8 rounded-xl border border-white/10">
-                                                <h2 className="text-xl font-bold mb-4">No Assistant Found</h2>
-                                                <button
-                                                    onClick={() => router.push("/assistants")}
-                                                    className="px-6 py-3 bg-purple-600 rounded-lg hover:bg-purple-700"
-                                                >
-                                                    Create Assistant
-                                                </button>
-                                            </div>
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        )}
-
-                        {sessionStatus === "connecting" && (
-                            <div className="flex flex-col items-center gap-4">
-                                <Loader2 className="w-12 h-12 animate-spin text-purple-500" />
-                                <p className="text-xl font-medium">Connecting to Ultravox...</p>
-                            </div>
-                        )}
-
-                        {sessionStatus === "connected" && session && (
-                            <div className="w-full h-full flex flex-col items-center justify-center py-8">
-                                <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-8 md:mb-12">
-                                    {(status === "listening" || status === "speaking") && (
-                                        <div className="absolute inset-0 bg-purple-600/20 rounded-full animate-ping opacity-75"></div>
-                                    )}
-                                    <div className="relative z-10 w-32 h-32 md:w-48 md:h-48 bg-black/60 backdrop-blur-xl border border-purple-500/50 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(147,51,234,0.3)]">
-                                        <Mic className={`w-10 h-10 md:w-16 md:h-16 ${status === "listening" ? "text-purple-400" : "text-zinc-500"}`} />
-                                    </div>
-                                </div>
-
-                                <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center px-4">{assistant?.name}</h2>
-                                <p className="text-zinc-400 mb-8 animate-pulse text-sm md:text-base capitalize">
-                                    {status === "listening" ? "Listening..." : status === "thinking" ? "Thinking..." : status === "speaking" ? "Speaking..." : "Connecting..."}
-                                </p>
-
-                                <button
-                                    onClick={handleEndCall}
-                                    className="bg-red-500 text-white px-8 py-4 rounded-full font-bold hover:bg-red-600 transition-colors shadow-lg flex items-center gap-3 text-lg"
-                                >
-                                    <PhoneOff className="w-6 h-6" />
-                                    End Call
-                                </button>
-                            </div>
-                        )}
-
-                        {sessionStatus === "finished" && (
-                            <div className="text-center">
-                                <h2 className="text-2xl font-bold mb-6">Session Ended</h2>
-                                <button
-                                    onClick={() => setSessionStatus("idle")}
-                                    className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors border border-white/10"
-                                >
-                                    Back to Home
-                                </button>
-                            </div>
-                        )}
-
-                        {ultravoxError && (
-                            <div className="absolute bottom-4 left-4 right-4 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-200">
-                                Error: {ultravoxError.message}
-                            </div>
-                        )}
-
+                        <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/5 hover:border-white/10 transition-colors">
+                            <User className="w-8 h-8 text-blue-400 mb-4" />
+                            <h4 className="font-bold mb-2">Video AI Agents</h4>
+                            <p className="text-zinc-500 text-sm">Web sitenizde müşterileri karşılayan interaktif avatarlar.</p>
+                        </div>
                     </div>
                 </div>
-            </AuroraBackground>
 
-            {/* Call Analytics Modal */}
-            {showAnalytics && callAnalytics && (
-                <CallAnalytics
-                    callData={callAnalytics}
-                    onClose={() => {
-                        setShowAnalytics(false);
-                        setSessionStatus("idle");
-                    }}
-                />
-            )}
+                {/* Trust Indicators / Stats */}
+                <div className="py-16 border-t border-white/5 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-zinc-600 font-black uppercase tracking-[0.2em] text-[10px]">
+                    <div className="flex flex-col items-center gap-3">
+                        <Zap className="w-5 h-5 text-purple-400" />
+                        <span>Jet Hızında Entegrasyon</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <Shield className="w-5 h-5 text-blue-400" />
+                        <span>Güvenli Altyapı</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <Globe className="w-5 h-5 text-emerald-400" />
+                        <span>Global Erişim</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <Link2 className="w-5 h-5 text-orange-400" />
+                        <span>Kolay API</span>
+                    </div>
+                </div>
+            </div>
         </main>
     );
 }

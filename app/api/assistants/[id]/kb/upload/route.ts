@@ -18,13 +18,9 @@ export async function POST(
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
         }
 
-        const assistant = db.getAssistant(id);
+        const assistant = await db.getAssistant(id);
         if (!assistant) {
             return NextResponse.json({ error: "Assistant not found" }, { status: 404 });
-        }
-
-        if (!assistant.ultravoxCorpusId) {
-            return NextResponse.json({ error: "Assistant has no Corpus" }, { status: 400 });
         }
 
         // Extract text
@@ -45,7 +41,12 @@ export async function POST(
         }
 
         // Upload to Ultravox
-        await ultravoxService.addTextSource(assistant.ultravoxCorpusId, text, file.name);
+        const corpusId = assistant.voiceConfig?.corpusId;
+        if (!corpusId) {
+            return NextResponse.json({ error: "Assistant has no Corpus ID" }, { status: 400 });
+        }
+
+        await ultravoxService.addTextSource(corpusId, text, file.name);
 
         const fileMeta = {
             id: Date.now().toString(),
@@ -56,7 +57,7 @@ export async function POST(
         };
 
         assistant.files.push(fileMeta);
-        db.saveAssistant(assistant);
+        await db.saveAssistant(assistant);
 
         return NextResponse.json({ success: true, file: fileMeta });
 

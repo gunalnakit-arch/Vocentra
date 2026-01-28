@@ -75,10 +75,60 @@ export const ultravoxService = {
         }));
     },
 
-    // Calls
+    // Agents
+    async createAgent(config: any) {
+        try {
+            const response = await client.post('/agents', config);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox Create Agent Error:', error.response?.data || error.message);
+            throw error;
+        }
+    },
+
+    async updateAgent(agentId: string, config: any) {
+        try {
+            const response = await client.patch(`/agents/${agentId}`, config);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox Update Agent Error:', error.response?.data || error.message);
+            throw error;
+        }
+    },
+
+    async deleteAgent(agentId: string) {
+        try {
+            await client.delete(`/agents/${agentId}`);
+        } catch (error: any) {
+            console.error('Ultravox Delete Agent Error:', error.response?.data || error.message);
+            throw error;
+        }
+    },
+
+    async listAgents() {
+        try {
+            const response = await client.get('/agents');
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox List Agents Error:', error.response?.data || error.message);
+            throw error;
+        }
+    },
+
+    // Calls (Session starting)
     async createCall(config: any) {
         try {
             const response = await client.post('/calls', config);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox API Error:', error.response?.data);
+            throw error;
+        }
+    },
+
+    async createCallWithAgent(agentId: string, config?: any) {
+        try {
+            const response = await client.post(`/agents/${agentId}/calls`, config || {});
             return response.data;
         } catch (error: any) {
             console.error('Ultravox API Error:', error.response?.data);
@@ -113,14 +163,47 @@ export const ultravoxService = {
         }
     },
 
-    async getCallMessages(callId: string) {
+    async getCallMessages(callId: string, mode: string = 'in_call', pageSize: number = 200) {
         try {
-            const response = await client.get(`/calls/${callId}/messages`);
+            const response = await client.get(`/calls/${callId}/messages`, {
+                params: { mode, pageSize }
+            });
             return response.data;
         } catch (error: any) {
             console.error('Ultravox Get Call Messages Error:', error.response?.data);
             throw error;
         }
-    }
+    },
 
+    async listCalls(agentId?: string, pageSize: number = 50) {
+        try {
+            const params: any = { pageSize };
+            if (agentId) params.agentId = agentId;
+            const response = await client.get('/calls', { params });
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox List Calls Error:', error.response?.data);
+            throw error;
+        }
+    },
+
+    async getCallEvents(callId: string) {
+        try {
+            const response = await client.get(`/calls/${callId}/events`);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox Get Call Events Error:', error.response?.data);
+            throw error;
+        }
+    },
+
+    async getCallRecording(callId: string) {
+        try {
+            const response = await client.get(`/calls/${callId}/recording`);
+            return response.data;
+        } catch (error: any) {
+            console.error('Ultravox Get Call Recording Error:', error.response?.data);
+            throw error;
+        }
+    }
 };
