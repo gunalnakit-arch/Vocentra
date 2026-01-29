@@ -26,6 +26,7 @@ export function AnamAvatar({ sessionToken, onStatusChange, onSessionId, onError 
         let anamClient: any;
 
         const initAnam = async () => {
+            console.log('Starting Anam Initialization with token:', sessionToken.substring(0, 10) + '...');
             setIsLoading(true);
             try {
                 // Initialize Anam Client
@@ -35,10 +36,9 @@ export function AnamAvatar({ sessionToken, onStatusChange, onSessionId, onError 
 
                 setClient(anamClient);
 
-                // Listen for status changes - SDK uses addListener
-                // Use SESSION_READY to signal that the avatar is prepared
+                // Listen for status changes
                 anamClient.addListener('session_ready', () => {
-                    console.log('Anam Session Ready');
+                    console.log('Anam EVENT: session_ready');
                     onStatusChange?.('connected');
                     const sessId = anamClient.getSessionId?.();
                     if (sessId) onSessionId?.(sessId);
@@ -46,19 +46,25 @@ export function AnamAvatar({ sessionToken, onStatusChange, onSessionId, onError 
                 });
 
                 anamClient.addListener('connection_state_changed', (state: string) => {
-                    console.log('Anam Connection State:', state);
+                    console.log('Anam EVENT: connection_state_changed ->', state);
                     onStatusChange?.(state);
                 });
 
-                // Stream to video element - SDK expects an ID string
+                anamClient.addListener('error', (err: any) => {
+                    console.error('Anam EVENT: error ->', err);
+                    onError?.(err);
+                });
+
+                // Stream to video element
                 const videoId = 'anam-video-element';
                 if (videoRef.current) {
+                    console.log('Binding Anam to video element ID:', videoId);
                     videoRef.current.id = videoId;
                     await anamClient.streamToVideoElement(videoId);
                 }
 
             } catch (err) {
-                console.error('Anam Initialization Error:', err);
+                console.error('Anam Initialization TRY-CATCH Error:', err);
                 onError?.(err);
                 setIsLoading(false);
             }

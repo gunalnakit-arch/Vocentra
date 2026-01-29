@@ -100,6 +100,14 @@ export default function TestPage() {
         }
     };
 
+    const handleAnamStatus = React.useCallback((s: string) => {
+        console.log("Anam Status Change:", s);
+    }, []);
+
+    const handleAnamSessionId = React.useCallback((sid: string) => {
+        setCallId(sid);
+    }, []);
+
     return (
         <main className="relative w-full min-h-screen text-white bg-black">
             <div className="relative z-10 flex flex-col min-h-screen w-full max-w-6xl mx-auto p-4 md:p-10">
@@ -172,8 +180,8 @@ export default function TestPage() {
                                 <div className="w-full max-w-4xl mx-auto mb-10">
                                     <AnamAvatar
                                         sessionToken={anamSessionToken}
-                                        onStatusChange={(s) => console.log("Anam Status:", s)}
-                                        onSessionId={(sid) => setCallId(sid)}
+                                        onStatusChange={handleAnamStatus}
+                                        onSessionId={handleAnamSessionId}
                                     />
                                 </div>
                             ) : (
