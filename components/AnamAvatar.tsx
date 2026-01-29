@@ -61,6 +61,18 @@ export function AnamAvatar({ sessionToken, onStatusChange, onSessionId, onError 
                     console.log('Binding Anam to video element ID:', videoId);
                     videoRef.current.id = videoId;
                     await anamClient.streamToVideoElement(videoId);
+                    console.log('Anam Client bind success');
+
+                    // Force play just in case
+                    try {
+                        await videoRef.current.play();
+                        console.log('Video play command sent');
+                    } catch (playErr) {
+                        console.warn('Video play failed:', playErr);
+                    }
+
+                    // If session_ready didn't fire yet, we should probably show the video now anyway
+                    setIsLoading(false);
                 }
 
             } catch (err) {
