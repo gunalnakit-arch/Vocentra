@@ -21,11 +21,13 @@ export default function DashboardLayout({
             {/* Content Area */}
             <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
                 {/* Header */}
-                <TailAdminHeader
-                    sidebarOpen={sidebarOpen}
-                    setSidebarOpen={setSidebarOpen}
-                    title="Komuta Merkezi"
-                />
+                <React.Suspense fallback={<div className="h-16 bg-white border-b border-slate-100 shadow-sm" />}>
+                    <TailAdminHeader
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen}
+                        title="Komuta Merkezi"
+                    />
+                </React.Suspense>
 
                 {/* Main Content */}
                 <main className="flex-1">

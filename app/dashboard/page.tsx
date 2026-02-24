@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import { Call } from "@/lib/types";
 import { aggregateCallData } from "@/lib/analytics-utils";
@@ -26,7 +26,7 @@ import { Assistant } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, User as UserIcon } from "lucide-react";
 
-export default function MasterDashboardPage() {
+function MasterDashboardContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const assistantId = searchParams.get("assistantId");
@@ -207,5 +207,20 @@ export default function MasterDashboardPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function MasterDashboardPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+                <div className="w-16 h-16 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 italic">
+                    Yükleniyor...
+                </p>
+            </div>
+        }>
+            <MasterDashboardContent />
+        </Suspense>
     );
 }
