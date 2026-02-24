@@ -18,67 +18,75 @@ export async function POST(
             return NextResponse.json({ error: "Call not found in database" }, { status: 404 });
         }
 
-        let transcript = "";
+        let transcriptArray: any[] = [];
+        let transcriptString = "";
 
         if (call.provider === "voice") {
             const messages = await ultravoxService.getCallMessages(callId);
-            transcript = (messages.results || []).map((m: any) => `${m.role}: ${m.text}`).join("\n");
+            transcriptArray = messages.results || [];
+            transcriptString = transcriptArray.map((m: any) => `${m.role}: ${m.text}`).join("\n");
         } else {
             const transcriptData = await anamService.getTranscript(callId);
-            transcript = (transcriptData.messages || []).map((m: any) => `${m.role}: ${m.message}`).join("\n");
+            transcriptArray = transcriptData.messages || [];
+            transcriptString = transcriptArray.map((m: any) => `${m.role}: ${m.message}`).join("\n");
         }
 
-        if (!transcript) {
+        if (!transcriptString) {
             return NextResponse.json({ error: "No transcript available for analysis" }, { status: 400 });
         }
 
         // Prepare LLM Prompt
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
         const prompt = `
-        Aşağıdaki çağrı merkezi görüşme transkriptini derinlemesine analiz et ve SADECE JSON formatında şu bilgileri üret:
+        Aşağıdaki çağrı merkezi görüşme transkriptini analiz et ve SADECE JSON formatında şu bilgileri üret:
         
         {
-          "sentiment": "positive" | "neutral" | "negative",
-          "satisfactionScore": 1-10 arası,
-          "professionalismScore": 1-100 arası,
-          "empathyScore": 1-100 arası,
-          "solutionAccuracyScore": 1-100 arası,
-          "emotionalTrend": [sayı listesi, görüşme boyuncaki duygu değişimi 1-100 arası, en az 5 nokta],
+          "outcome": "Success" | "Failure" | "Escalated" | "Need Callback",
+          "sentimentScore": 0-100 arası,
+          "qualityScore": 0-100 arası,
+          "professionalismScore": 0-100 arası,
+          "empathyScore": 0-100 arası,
+          "solutionAccuracyScore": 0-100 arası,
+          "riskFlags": ["risk 1", "risk 2", ...],
+          "complianceFlags": ["ihlali 1", ...],
+          "classification": {
+            "intent": "Müşteri isteği/amacı",
+            "topic": "Görüşme ana başlığı"
+          },
+          "emotionalTrend": [sayı listesi, 0-100 arası],
+          "insights": ["aksiyona dökülebilir içgörü 1", ...],
+          "actionItems": ["yapılması gereken 1", ...],
+          "expertAssessment": "Görüşme hakkında teknik uzman değerlendirmesi",
           "kpis": {
-            "avgResponseTime": "ms cinsinden string",
-            "silenceRatio": "% cinsinden string",
-            "interruptionCount": sayı
-          },
-          "radarData": {
-             "professionalism": 1-100,
-             "empathy": 1-100,
-             "accuracy": 1-100,
-             "speed": 1-100,
-             "clarity": 1-100
-          },
-          "keyPoints": ["madde 1", "madde 2", ...],
-          "actionItems": ["aksiyon 1", "aksiyon 2", ...],
-          "callQuality": "Görüşme kalitesi hakkında çok kısa (max 10 kelime) teknik yorum",
-          "expertAssessment": "Görüşme hakkında detaylı uzman değerlendirmesi ve gelişim önerileri",
-          "insights": ["insight 1", "insight 2", ...]
+            "avgResponseTime": "ms",
+            "silenceRatio": "%",
+            "interruptionCount": 0
+          }
         }
 
         Transkript:
-        ${transcript}
+        ${transcriptString}
 
-        ÖNEMLİ: Lütfen SADECE geçerli bir JSON döndür. Markdown backticks ( \`\`\`json ) kullanma. Metinler Türkçe olsun.
+        ÖNEMLİ: Sadece geçerli JSON döndür. Markdown backticks kullanma. Metinler Türkçe olsun.
         `;
 
         const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        const text = result.response.text();
 
         // Basic cleanup for JSON
         const cleanJson = text.replace(/```json|```/g, "").trim();
         const analytics = JSON.parse(cleanJson);
 
-        // Update call with analytics
+        // Update call with analytics AND ensure transcript is saved
         call.analytics = analytics;
+        call.transcript = transcriptArray;
+
+        // Also update summaries if not present
+        if (!call.shortSummary || !call.summary) {
+            call.shortSummary = analytics.classification?.topic || "Görüşme Analizi";
+            call.summary = analytics.expertAssessment;
+        }
+
         await db.saveCall(call);
 
         return NextResponse.json(analytics);

@@ -59,8 +59,32 @@ export interface Assistant {
     updatedAt: Date;
 }
 
+export interface CallAnalytics {
+    outcome: string;
+    sentimentScore: number;
+    qualityScore: number;
+    professionalismScore: number;
+    empathyScore: number;
+    solutionAccuracyScore: number;
+    riskFlags: string[];
+    complianceFlags: string[];
+    classification: {
+        intent: string;
+        topic: string;
+    };
+    emotionalTrend: number[];
+    insights: string[];
+    actionItems: string[];
+    expertAssessment: string;
+    kpis: {
+        avgResponseTime?: string;
+        silenceRatio?: string;
+        interruptionCount?: number;
+    };
+}
+
 export interface Call {
-    id: string; // The external call/session ID (Ultravox callId or Anam sessionId)
+    id: string;
     assistantId: string;
     provider: "voice" | "avatar";
     createdAt: Date;
@@ -69,12 +93,10 @@ export interface Call {
     summary?: string;
     shortSummary?: string;
     transcript?: any[];
-    analytics?: any;
+    analytics?: CallAnalytics;
     metadata?: {
-        // Ultravox specific
         agentName?: string;
         agentId?: string;
-        // Anam specific
         personaName?: string;
         personaId?: string;
         apiKeyLabel?: string;
@@ -82,4 +104,17 @@ export interface Call {
         exitStatus?: string;
         endedAt?: Date;
     };
+}
+
+export interface Appointment {
+    id: string;
+    customerName: string;
+    phone: string;
+    startTime: Date;
+    endTime: Date;
+    durationMin: number;
+    status: "confirmed" | "cancelled";
+    notes?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

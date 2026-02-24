@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { SplineSceneBasic } from "@/components/ui/spline-scene-basic";
 import { ArrowRight, Zap, Shield, Globe, Link2, Mic, User } from "lucide-react";
 import DemoModal from "@/components/DemoModal";
+import CalendarWidget from "@/components/calendar/CalendarWidget";
 
 export default function LandingPage() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export default function LandingPage() {
                             <button onClick={() => router.push("/")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Homepage</button>
                             <button className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Pricing</button>
                             <button onClick={() => router.push("/assistants")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Admin</button>
-                            <button onClick={() => router.push("/assistants")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Dashboard</button>
+                            <button onClick={() => router.push("/dashboard")} className="text-zinc-400 hover:text-white transition-colors text-sm font-medium">Dashboard</button>
                         </nav>
                     </div>
                     <button
@@ -66,6 +67,22 @@ export default function LandingPage() {
                             <p className="text-zinc-500 text-sm">Web sitenizde müşterileri karşılayan interaktif avatarlar.</p>
                         </div>
                     </div>
+                </div>
+
+                {/* Calendar Module Section */}
+                <div className="mb-32">
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                            Live Demo Integration
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">
+                            Otonom Takvim Yönetimi
+                        </h2>
+                        <p className="text-zinc-400 max-w-2xl mx-auto">
+                            Aşağıdaki takvim, hem sesli hem de görüntülü AI asistanlarımız tarafından ortak olarak kullanılmaktadır. Asistanlarla yapacağınız görüşmelerde "randevu oluştur" talebiniz anında bu takvime yansıyacaktır.
+                        </p>
+                    </div>
+                    <CalendarWidget />
                 </div>
 
                 {/* Trust Indicators / Stats */}

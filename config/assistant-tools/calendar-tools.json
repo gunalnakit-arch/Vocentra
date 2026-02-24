@@ -1,0 +1,120 @@
+{
+    "ultravox": {
+        "tools": [
+            {
+                "temporaryTool": {
+                    "modelToolName": "check_availability",
+                    "description": "Checks available time slots for a given date. Returns an array of free slots with Start and End times. Only returns slots within working hours (09:00 - 18:00) that do not conflict with existing appointments.",
+                    "dynamicParameters": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "string",
+                                "description": "The date to check availability for, in YYYY-MM-DD format."
+                            },
+                            "durationMin": {
+                                "type": "integer",
+                                "description": "The desired duration of the appointment in minutes. Default is 30."
+                            }
+                        },
+                        "required": [
+                            "date"
+                        ]
+                    },
+                    "http": {
+                        "baseUrlPattern": "https://<YOUR_DOMAIN>/api/calendar/availability",
+                        "httpMethod": "GET"
+                    },
+                    "timeout": "10s"
+                }
+            },
+            {
+                "temporaryTool": {
+                    "modelToolName": "create_appointment",
+                    "description": "Books a new appointment for the user. Call this ONLY AFTER you have checked availability and the user has confirmed the time.",
+                    "dynamicParameters": {
+                        "type": "object",
+                        "properties": {
+                            "customer_name": {
+                                "type": "string",
+                                "description": "The full name of the customer."
+                            },
+                            "phone": {
+                                "type": "string",
+                                "description": "The customer's phone number."
+                            },
+                            "start_time": {
+                                "type": "string",
+                                "description": "The ISO 8601 formatted start time of the appointment (e.g., '2025-10-15T10:30:00.000Z'). Must be exactly one of the start times returned by the check_availability tool."
+                            },
+                            "duration_min": {
+                                "type": "integer",
+                                "description": "Duration in minutes. Must match what was checked."
+                            },
+                            "notes": {
+                                "type": "string",
+                                "description": "Any additional notes from the user."
+                            }
+                        },
+                        "required": [
+                            "customer_name",
+                            "start_time",
+                            "duration_min"
+                        ]
+                    },
+                    "http": {
+                        "baseUrlPattern": "https://<YOUR_DOMAIN>/api/calendar/appointments",
+                        "httpMethod": "POST"
+                    },
+                    "timeout": "10s"
+                }
+            },
+            {
+                "temporaryTool": {
+                    "modelToolName": "cancel_appointment",
+                    "description": "Cancels an existing appointment using its unique appointment ID.",
+                    "dynamicParameters": {
+                        "type": "object",
+                        "properties": {
+                            "appointment_id": {
+                                "type": "string",
+                                "description": "The UUID of the appointment to cancel."
+                            }
+                        },
+                        "required": [
+                            "appointment_id"
+                        ]
+                    },
+                    "http": {
+                        "baseUrlPattern": "https://<YOUR_DOMAIN>/api/calendar/cancel",
+                        "httpMethod": "POST"
+                    },
+                    "timeout": "10s"
+                }
+            }
+        ],
+        "systemPromptAdditions": "ROL / AMAÇ\nSen bir diş kliniğinin telefonla çalışan yapay zeka çağrı merkezi asistanısın (isim: Vocentra Dijital Asistan). Görevin: arayan kişilere klinikle ilgili bilgi vermek, randevu talebini almak ve canlı takvim sistemine randevu kaydetmek, uygun birim/kişiye aktarım yapmak ve klinik süreçlerini açıklamak.\n\nTEK BİLGİ KAYNAĞI (ZORUNLU)\nYalnızca sana sağlanan belgelere ve web sitesi içeriğine dayanarak cevap ver. Genel diş hekimliği bilgisi, internet bilgisi, tıbbi tavsiye, fiyat tahmini gibi uydurma bilgiler verme.\n\nKATI KURAL: HALLÜSİNASYON YOK\nKaynaklarda açıkça geçmeyen hiçbir detayı uydurma. Emin değilsen: \"Bu konuda net bir bilgi göremiyorum. İsterseniz size en doğru bilgiyi vermesi için kliniğe not bırakayım.\" de.\n\nYANIT STİLİ\nDil: Türkçe. Ton: profesyonel, sıcak, kısa ve net. Telefonda konuşur gibi: kısa cümleler, tek seferde 1–2 soru.\n\nARAMA AÇILIŞI\n\"Merhaba, kliniğimizin dijital asistanıyım. Size nasıl yardımcı olabilirim?\"\n\nRANDEVU YÖNETİMİ (ÇOK ÖNEMLİ)\nSenin doğrudan takvime erişimin var!\nKullanıcı randevu almak istediğinde:\n1. Hangi gün randevu istediğini sor.\n2. **ZORUNLU**: `check_availability` aracıyla o günkü boş saatleri sorgula.\n3. Kullanıcıya uygun olan 2 veya en fazla 3 saat alternatifini sun.\n4. Kullanıcı saati seçtiğinde, ondan tam adını (`customer_name`) ve telefon numarasını (`phone`) iste. (Şikayeti varsa `notes` kısmına ekle).\n5. Tüm bilgileri aldıktan sonra **ZORUNLU** olarak `create_appointment` aracını çağırıp randevuyu sisteme kaydet.\n6. SADECE ARAÇ BAŞARILI yanıt döndüğünde: \"Randevunuz onaylanmıştır, teşekkür ederiz.\" diyerek işlemi bitir.\nİptal taleplerinde randevu ID'sini öğrenip `cancel_appointment` çağırabilirsin.\n\nFİYAT / TEDAVİ BİLGİSİ\nSadece sistemde net bir fiyat listesi/kampanya varsa aktar. Yoksa: \"Web sitemizde fiyat bilgisi yer almıyor, sizi ekibimize yönlendirebilirim.\" Tıbbi teşhis/yönlendirme yapma.\n\nBELİRSİZLİK YÖNETİMİ\n\"Bu bilgi elimdeki kaynaklarda net görünmüyor. İsterseniz ad-soyad ve telefon numaranızı alıp dönüş yapılmasını sağlayayım.\""
+    },
+    "anam": {
+        "webhooks": [
+            {
+                "name": "check_availability",
+                "url": "https://<YOUR_DOMAIN>/api/calendar/availability",
+                "method": "GET",
+                "parameters": "Takes `date` (YYYY-MM-DD) and `durationMin`."
+            },
+            {
+                "name": "create_appointment",
+                "url": "https://<YOUR_DOMAIN>/api/calendar/appointments",
+                "method": "POST",
+                "parameters": "Takes `customer_name`, `phone`, `start_time` (ISO), `duration_min`."
+            },
+            {
+                "name": "cancel_appointment",
+                "url": "https://<YOUR_DOMAIN>/api/calendar/cancel",
+                "method": "POST",
+                "parameters": "Takes `appointment_id`."
+            }
+        ]
+    }
+}

@@ -74,7 +74,7 @@ export function AssistantCard({
                             Test Et
                         </button>
                         <Link
-                            href={`/assistants/${assistant.id}/dashboard`}
+                            href={`/dashboard?assistantId=${assistant.id}`}
                             className="flex-1 py-3 px-4 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/20 text-purple-400 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 active:scale-95 text-center"
                         >
                             <LayoutDashboard className="w-4 h-4" />
