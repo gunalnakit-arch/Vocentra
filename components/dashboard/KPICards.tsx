@@ -7,7 +7,7 @@ import {
     DollarSign,
     Smile,
     ShieldCheck,
-    AlertTriangle
+    TriangleAlert
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AggregatedStats } from "@/lib/analytics-utils";
@@ -81,7 +81,7 @@ const KPICards = ({ stats }: KPICardsProps) => {
         {
             label: "Risk / İhlal",
             value: stats.riskCount + stats.complianceCount,
-            icon: AlertTriangle,
+            icon: TriangleAlert,
             color: "text-rose-600",
             bg: "bg-rose-50",
             trend: "-2",
