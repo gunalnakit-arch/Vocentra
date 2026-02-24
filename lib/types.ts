@@ -76,6 +76,13 @@ export interface CallAnalytics {
     insights: string[];
     actionItems: string[];
     expertAssessment: string;
+    agentPerformance?: {
+        overallScore: number;
+        tone: string;
+        adaptability: string;
+        strengths: string[];
+        areasForImprovement: string[];
+    };
     kpis: {
         avgResponseTime?: string;
         silenceRatio?: string;

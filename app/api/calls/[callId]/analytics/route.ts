@@ -36,27 +36,34 @@ export async function POST(
         }
 
         // Prepare LLM Prompt
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         const prompt = `
         Aşağıdaki çağrı merkezi görüşme transkriptini analiz et ve SADECE JSON formatında şu bilgileri üret:
         
         {
           "outcome": "Success" | "Failure" | "Escalated" | "Need Callback",
-          "sentimentScore": 0-100 arası,
-          "qualityScore": 0-100 arası,
-          "professionalismScore": 0-100 arası,
-          "empathyScore": 0-100 arası,
-          "solutionAccuracyScore": 0-100 arası,
+          "sentimentScore": 0-100 arası (sayı),
+          "qualityScore": 0-100 arası (sayı),
+          "professionalismScore": 0-100 arası (sayı),
+          "empathyScore": 0-100 arası (sayı),
+          "solutionAccuracyScore": 0-100 arası (sayı),
           "riskFlags": ["risk 1", "risk 2", ...],
           "complianceFlags": ["ihlali 1", ...],
           "classification": {
             "intent": "Müşteri isteği/amacı",
             "topic": "Görüşme ana başlığı"
           },
-          "emotionalTrend": [sayı listesi, 0-100 arası],
-          "insights": ["aksiyona dökülebilir içgörü 1", ...],
-          "actionItems": ["yapılması gereken 1", ...],
-          "expertAssessment": "Görüşme hakkında teknik uzman değerlendirmesi",
+          "emotionalTrend": [sayı listesi, 0-100 arası, çağrı boyunca değişimi gösteren 7 elemanlı dizi],
+          "insights": ["aksiyona dökülebilir içgörü 1", "içgörü 2", ...],
+          "actionItems": ["yapılması gereken 1", "aksiyon 2", ...],
+          "expertAssessment": "Görüşme hakkında teknik uzman değerlendirmesi (1-2 cümle)",
+          "agentPerformance": {
+            "overallScore": 0-100 arası (sayı),
+            "tone": "Kullanılan ses tonu (örn: Profesyonel, Empatik, Aceleci)",
+            "adaptability": "Müşterinin durumuna uyum sağlama değerlendirmesi",
+            "strengths": ["güçlü yön 1", "güçlü yön 2"],
+            "areasForImprovement": ["gelişim alanı 1", "gelişim alanı 2"]
+          },
           "kpis": {
             "avgResponseTime": "ms",
             "silenceRatio": "%",
@@ -73,8 +80,14 @@ export async function POST(
         const result = await model.generateContent(prompt);
         const text = result.response.text();
 
-        // Basic cleanup for JSON
-        const cleanJson = text.replace(/```json|```/g, "").trim();
+        // More robust cleanup for JSON
+        let cleanJson = text.trim();
+        if (cleanJson.includes("```json")) {
+            cleanJson = cleanJson.split("```json")[1].split("```")[0].trim();
+        } else if (cleanJson.includes("```")) {
+            cleanJson = cleanJson.split("```")[1].split("```")[0].trim();
+        }
+
         const analytics = JSON.parse(cleanJson);
 
         // Update call with analytics AND ensure transcript is saved

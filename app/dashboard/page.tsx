@@ -56,15 +56,23 @@ function MasterDashboardContent() {
     };
 
     // Fetch data from Supabase
-    const fetchData = async () => {
-        setLoading(true);
+    const fetchData = async (silent = false) => {
+        if (!silent) setLoading(true);
         try {
             const callsData = await db.getCalls(assistantId || undefined);
             setCalls(callsData);
+
+            // Critical: Also update the currently selected call to reflect new analytics/summary
+            if (selectedCall) {
+                const refreshedSelectedCall = callsData.find(c => c.id === selectedCall.id);
+                if (refreshedSelectedCall) {
+                    setSelectedCall(refreshedSelectedCall);
+                }
+            }
         } catch (error) {
             console.error("Error fetching calls:", error);
         } finally {
-            setLoading(false);
+            if (!silent) setLoading(false);
         }
     };
 
@@ -125,7 +133,7 @@ function MasterDashboardContent() {
                             </div>
                         </div>
                         <div className="flex-1 min-h-0">
-                            <CallDetailTabs call={selectedCall} onUpdate={fetchData} />
+                            <CallDetailTabs key={selectedCall.id} call={selectedCall} onUpdate={() => fetchData(true)} />
                         </div>
                     </div>
                 ) : (
@@ -160,7 +168,7 @@ function MasterDashboardContent() {
                                 Performans Özeti
                             </h2>
                             <button
-                                onClick={fetchData}
+                                onClick={() => fetchData()}
                                 className="p-2 hover:bg-white rounded-xl transition-all text-slate-400 hover:text-indigo-600 border border-transparent hover:border-slate-100"
                             >
                                 <RefreshCw className="w-5 h-5" />

@@ -13,7 +13,12 @@ import {
     TrendingUp,
     AlertCircle,
     CheckCircle2,
-    Smile
+    Smile,
+    Star,
+    Target,
+    ShieldAlert,
+    Lightbulb,
+    CheckSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Call } from "@/lib/types";
@@ -32,6 +37,7 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
     const [analyzing, setAnalyzing] = useState(false);
     const [localTranscript, setLocalTranscript] = useState<any[]>(call.transcript || []);
     const [fetchingTranscript, setFetchingTranscript] = useState(false);
+    const [hasAutoAnalyzed, setHasAutoAnalyzed] = useState(false);
 
     // Fetch transcript if missing
     React.useEffect(() => {
@@ -67,6 +73,17 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
         }
     };
 
+    const analytics = call.analytics;
+    const isAnalyticsMissing = !analytics || Object.keys(analytics).length === 0 || !(analytics as any).outcome;
+
+    // Auto-analyze when transcript is ready but analytics are missing
+    React.useEffect(() => {
+        if (localTranscript.length > 0 && isAnalyticsMissing && !analyzing && !hasAutoAnalyzed) {
+            setHasAutoAnalyzed(true);
+            handleAnalyze();
+        }
+    }, [localTranscript.length, isAnalyticsMissing, analyzing, hasAutoAnalyzed]);
+
     const tabs = [
         { id: "overview", label: "Overview", icon: FileText },
         { id: "transcript", label: "Transcript", icon: Mic },
@@ -75,8 +92,6 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
         { id: "avatar", label: "Avatar", icon: User },
         { id: "actions", label: "Actions", icon: Zap },
     ];
-
-    const analytics = call.analytics;
 
     return (
         <div className="flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -103,13 +118,13 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8">
                 {activeTab === "overview" && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        {(!analytics || localTranscript.length === 0) && (
+                        {isAnalyticsMissing && localTranscript.length > 0 && (
                             <div className="bg-amber-50 border border-amber-100 p-6 rounded-2xl flex items-center justify-between gap-4 shadow-sm">
                                 <div className="flex items-center gap-4 text-amber-600">
                                     <AlertCircle className="w-8 h-8 shrink-0" />
                                     <div>
-                                        <p className="text-xs font-black uppercase tracking-widest leading-none mb-1">Eksik Veri Tespit Edildi</p>
-                                        <p className="text-[10px] font-bold opacity-80 uppercase leading-none">Görüşme analizi veya transkript henüz hazır değil.</p>
+                                        <p className="text-xs font-black uppercase tracking-widest leading-none mb-1">Analiz Bekleniyor</p>
+                                        <p className="text-[10px] font-bold opacity-80 uppercase leading-none">Bu görüşme henüz yapay zeka tarafından özetlenmedi.</p>
                                     </div>
                                 </div>
                                 <button
@@ -120,6 +135,15 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
                                     <Zap className={cn("w-3.5 h-3.5", analyzing && "animate-spin")} />
                                     {analyzing ? "ANALİZ EDİLİYOR..." : "HEMEN ANALİZ ET"}
                                 </button>
+                            </div>
+                        )}
+                        {localTranscript.length === 0 && !fetchingTranscript && (
+                            <div className="bg-slate-50 border border-slate-100 p-6 rounded-2xl flex items-center gap-4 text-slate-400">
+                                <Mic className="w-8 h-8" />
+                                <div>
+                                    <p className="text-xs font-black uppercase tracking-widest leading-none mb-1">Sinyal Yok</p>
+                                    <p className="text-[10px] font-bold opacity-80 uppercase leading-none">Bu görüşmeye ait henüz bir transkript detayı bulunmuyor.</p>
+                                </div>
                             </div>
                         )}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -158,16 +182,19 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
                             </div>
 
                             <div className="space-y-6">
-                                <h3 className="text-lg font-black text-slate-800 tracking-tighter uppercase italic">Next Best Actions</h3>
+                                <h3 className="text-lg font-black text-slate-800 tracking-tighter uppercase italic">Quick Insights</h3>
                                 <div className="space-y-3">
-                                    {analytics?.actionItems?.map((action, i) => (
+                                    {analytics?.insights?.slice(0, 3).map((insight, i) => (
                                         <div key={i} className="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:border-indigo-200 transition-all">
-                                            <div className="w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 font-black text-[10px]">
-                                                {i + 1}
+                                            <div className="w-6 h-6 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 font-black text-[10px]">
+                                                <Lightbulb className="w-3.5 h-3.5" />
                                             </div>
-                                            <p className="text-xs font-bold text-slate-700 leading-normal">{action}</p>
+                                            <p className="text-xs font-bold text-slate-700 leading-normal">{insight}</p>
                                         </div>
                                     ))}
+                                    {(!analytics?.insights || analytics.insights.length === 0) && (
+                                        <div className="p-4 text-xs text-slate-400 font-medium italic">Henüz içgörü bulunmuyor.</div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -314,11 +341,166 @@ const CallDetailTabs = ({ call, onUpdate }: CallDetailTabsProps) => {
                     </div>
                 )}
 
-                {/* Placeholder for other tabs ... */}
-                {(activeTab === "quality" || activeTab === "avatar" || activeTab === "actions") && (
-                    <div className="h-full flex flex-col items-center justify-center opacity-20 py-20">
-                        < Zap className="w-20 h-20 mb-6 text-indigo-600 animate-pulse" />
-                        <p className="text-sm font-black uppercase tracking-[0.4em] text-slate-800 uppercase italic">Modül Yükleniyor...</p>
+                {activeTab === "quality" && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <h3 className="text-lg font-black text-slate-800 tracking-tighter uppercase italic mb-6">Quality Assurance</h3>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                { label: "Profesyonellik", score: analytics?.professionalismScore || 0, color: "text-blue-600", bg: "bg-blue-50/50" },
+                                { label: "Empati", score: analytics?.empathyScore || 0, color: "text-rose-600", bg: "bg-rose-50/50" },
+                                { label: "Çözüm Doğruluğu", score: analytics?.solutionAccuracyScore || 0, color: "text-emerald-600", bg: "bg-emerald-50/50" },
+                                { label: "Genel Kalite", score: analytics?.qualityScore || 0, color: "text-indigo-600", bg: "bg-indigo-50/50" },
+                            ].map((metric, i) => (
+                                <div key={i} className={cn("p-6 rounded-[2rem] border border-slate-100", metric.bg)}>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{metric.label}</p>
+                                        <Star className={cn("w-4 h-4", metric.color)} />
+                                    </div>
+                                    <p className="text-3xl font-black text-slate-800">{metric.score}%</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                            <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-sm">
+                                <h4 className="text-[10px] font-black uppercase text-amber-600 tracking-[0.2em] mb-6 flex items-center gap-2">
+                                    <ShieldAlert className="w-4 h-4" /> Compliance & Risks
+                                </h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase mb-2">Kurallar İhlalleri</p>
+                                        {analytics?.complianceFlags && analytics.complianceFlags.length > 0 ? (
+                                            <ul className="list-disc pl-4 text-sm text-slate-700 space-y-1">
+                                                {analytics.complianceFlags.map((flag, i) => <li key={i}>{flag}</li>)}
+                                            </ul>
+                                        ) : (
+                                            <p className="text-sm font-medium text-emerald-600 bg-emerald-50 p-2 rounded-lg">İhlal bulunmadı.</p>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-slate-500 uppercase mb-2">Risk Bayrakları</p>
+                                        {analytics?.riskFlags && analytics.riskFlags.length > 0 ? (
+                                            <ul className="list-disc pl-4 text-sm text-slate-700 space-y-1">
+                                                {analytics.riskFlags.map((flag, i) => <li key={i} className="text-rose-600">{flag}</li>)}
+                                            </ul>
+                                        ) : (
+                                            <p className="text-sm font-medium text-emerald-600 bg-emerald-50 p-2 rounded-lg">Risk tespit edilmedi.</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === "avatar" && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <h3 className="text-lg font-black text-slate-800 tracking-tighter uppercase italic mb-6">Agent Performance</h3>
+
+                        <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-10 text-white relative overflow-hidden">
+                            <User className="absolute -right-8 -bottom-8 w-64 h-64 text-slate-800 opacity-50" />
+                            <div className="relative z-10">
+                                <div className="flex items-end gap-6 mb-8">
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-1">Overall Performans</p>
+                                        <p className="text-6xl font-black">{analytics?.agentPerformance?.overallScore || 0}<span className="text-2xl text-slate-500">/100</span></p>
+                                    </div>
+                                    <div className="space-y-2 pb-2">
+                                        <div className="flex gap-2">
+                                            <span className="px-3 py-1 bg-white/10 rounded-lg text-xs font-medium uppercase tracking-widest text-white border border-white/10">Ton: {analytics?.agentPerformance?.tone || "Bilinmiyor"}</span>
+                                            <span className="px-3 py-1 bg-white/10 rounded-lg text-xs font-medium uppercase tracking-widest text-white border border-white/10">{analytics?.agentPerformance?.adaptability || "Uyum: Bilinmiyor"}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-800">
+                                    <div>
+                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-4 flex items-center gap-2">
+                                            <Star className="w-3.5 h-3.5" /> Strengths
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {analytics?.agentPerformance?.strengths?.map((str, i) => (
+                                                <li key={i} className="flex gap-2 text-sm text-slate-300">
+                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                                                    {str}
+                                                </li>
+                                            ))}
+                                            {(!analytics?.agentPerformance?.strengths || analytics.agentPerformance.strengths.length === 0) && (
+                                                <p className="text-sm text-slate-500 italic">Veri yok</p>
+                                            )}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-4 flex items-center gap-2">
+                                            <Target className="w-3.5 h-3.5" /> Areas For Improvement
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {analytics?.agentPerformance?.areasForImprovement?.map((area, i) => (
+                                                <li key={i} className="flex gap-2 text-sm text-slate-300">
+                                                    <Target className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                                                    {area}
+                                                </li>
+                                            ))}
+                                            {(!analytics?.agentPerformance?.areasForImprovement || analytics.agentPerformance.areasForImprovement.length === 0) && (
+                                                <p className="text-sm text-slate-500 italic">Veri yok</p>
+                                            )}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === "actions" && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-4xl mx-auto">
+                        <h3 className="text-lg font-black text-slate-800 tracking-tighter uppercase italic mb-8 text-center">İçgörüler ve Aksiyonlar</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
+                                        <Lightbulb className="w-5 h-5" />
+                                    </div>
+                                    <h4 className="text-sm font-black uppercase text-slate-800 tracking-widest">Key Insights</h4>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {analytics?.insights?.map((insight, i) => (
+                                        <div key={i} className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm">
+                                            <p className="text-sm font-medium text-slate-700 leading-relaxed">{insight}</p>
+                                        </div>
+                                    ))}
+                                    {(!analytics?.insights || analytics.insights.length === 0) && (
+                                        <p className="text-sm text-slate-400 font-medium italic">Henüz içgörü bulunmuyor.</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
+                                        <CheckSquare className="w-5 h-5" />
+                                    </div>
+                                    <h4 className="text-sm font-black uppercase text-slate-800 tracking-widest">Next Best Actions</h4>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {analytics?.actionItems?.map((action, i) => (
+                                        <div key={i} className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex gap-4 transition-all hover:border-emerald-200 group">
+                                            <div className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-black text-[10px] group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                                {i + 1}
+                                            </div>
+                                            <p className="text-sm font-bold text-slate-700 leading-relaxed">{action}</p>
+                                        </div>
+                                    ))}
+                                    {(!analytics?.actionItems || analytics.actionItems.length === 0) && (
+                                        <p className="text-sm text-slate-400 font-medium italic">Planlanan aksiyon bulunmuyor.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
