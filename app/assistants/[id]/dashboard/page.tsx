@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, use, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Assistant, Call } from "@/lib/types";
 import {
@@ -24,7 +24,7 @@ import {
 import axios from "axios";
 import { cn } from "@/lib/utils";
 
-export default function AssistantDashboard({ params }: { params: Promise<{ id: string }> }) {
+function AssistantDashboardContent({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const callIdParam = searchParams.get("callId");
@@ -640,5 +640,21 @@ export default function AssistantDashboard({ params }: { params: Promise<{ id: s
                 }
             `}</style>
         </main>
+    );
+}
+
+export default function AssistantDashboard({ params }: { params: Promise<{ id: string }> }) {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-4">
+                <div className="relative">
+                    <div className="w-16 h-16 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
+                    <LayoutDashboard className="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-500" />
+                </div>
+                <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px] animate-pulse">Yükleniyor...</p>
+            </div>
+        }>
+            <AssistantDashboardContent params={params} />
+        </Suspense>
     );
 }
